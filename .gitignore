@@ -1,2 +1,4 @@
 .DS_Store
 daemonServerData/.DS_Store
+client
+daemon-server

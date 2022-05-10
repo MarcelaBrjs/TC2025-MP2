@@ -137,40 +137,49 @@ int main() {
     // ACCEPT CONNECTIONS
     while ((new_socket = accept(s, (struct sockaddr*)&address, (socklen_t*)&addrlen))) {
         // GET OPTION
-        data = read(new_socket, buffer, 1024);
-        char tempBuffer[1024] = {0};
-        strcpy(tempBuffer, buffer);
-
-        char* sp = ";";
-        char* option = strtok(tempBuffer, sp);
         
-        if(atoi(option) == 0) {
-            char* user = strtok(NULL, sp);
-            char* password = strtok(NULL, sp);
+        while((data = recv(new_socket, buffer , 1024 , 0))) {
+            char* sp = ";";
+            char* option = strtok(buffer, sp);
+            
+            if(atoi(option) == 0) {
+                char* user = strtok(NULL, sp);
+                char* password = strtok(NULL, sp);
 
-            for (int i = 0; i < 10; i++) {
-                int validUsername = strcmp(users[i].username, user);
-                int validPassword = strcmp(users[i].password, password);
-
-                fprintf(ptrLogs, "User Password %s %s\n", users[i].username, users[i].password);
-                fflush(ptrLogs);
-                fprintf(ptrLogs, "User Password %d %d\n", validUsername, validPassword);
-                
-                if(validUsername == 0 && validPassword == 0) {
-                    fprintf(ptrLogs, "Connected, user authenticated.\n");            
-                    fflush(ptrLogs);
-                    send(new_socket, "1", strlen("1"), 0);
-                    break;
+                for (int i = 0; i < 10; i++) {
+                    int validUsername = strcmp(users[i].username, user);
+                    int validPassword = strcmp(users[i].password, password);
+                    
+                    if(validUsername == 0 && validPassword == 0) {
+                        fprintf(ptrLogs, "Connected, user authenticated.\n");            
+                        fflush(ptrLogs);
+                        send(new_socket, "1", strlen("1"), 0);
+                        break;
+                    } else {
+                        send(new_socket, "0", strlen("0"), 0);
+                    }
                 }
-                
+            } else if (atoi(option) == 1) {
+                // Obtener datos de la tabla 1 - empleados.
+            } else if (atoi(option) == 2) {
+                // Obtener datos de la tabla 2 - departamentos.
+            } else if (atoi(option) == 3) {
+                // Select.
+            } else if (atoi(option) == 4) {
+                // Join
+            } else if (atoi(option) == 5) {
+                // Insert
+            } else if (atoi(option) == 6) {
+                // Cerrar
+                fprintf(ptrLogs, "Close user account.\n");            
+                fflush(ptrLogs);
             }
-        } 
-
-        if (new_socket < 0) {
-            fprintf(ptrLogs, "Accept failed.\n");
-            exit(EXIT_FAILURE);
         }
-    };
+    }
+
+    if (new_socket < 0) {
+            fprintf(ptrLogs, "Accept failed.\n");
+    }
 
     fclose(ptrLogs);
     close(s);

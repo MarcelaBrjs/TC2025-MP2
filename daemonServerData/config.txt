@@ -1,4 +1,4 @@
 user;password
-marcela;marcela
-carlos;carlos
-lorena;lorena
+marcela;VNyXyTwH7o
+carlos;WlOKHqMNwo
+lorena;2WnIO3PyOq

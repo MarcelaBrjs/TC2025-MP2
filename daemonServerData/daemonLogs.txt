@@ -1,0 +1,74 @@
+Socket has been created.
+Bound.
+Waiting for connections...
+Connected, pending authentication.
+Buffer[1] marcela
+Buffer[2] VNyXyTwH7o
+username marcela
+password VNyXyTwH7o
+validar username 0
+validar password 23
+validar 0
+Buffer[1] marcela
+Buffer[2] VNyXyTwH7o
+username carlos
+password WlOKHqMNwo
+validar username -10
+validar password 13
+validar 0
+Buffer[1] marcela
+Buffer[2] VNyXyTwH7o
+username lorena
+password 2WnIO3PyOq
+validar username -1
+validar password 22
+validar 0
+Buffer[1] marcela
+Buffer[2] VNyXyTwH7o
+username 
+password 
+validar username -109
+validar password -86
+validar 0
+Buffer[1] marcela
+Buffer[2] VNyXyTwH7o
+username 
+password 
+validar username -109
+validar password -86
+validar 0
+Buffer[1] marcela
+Buffer[2] VNyXyTwH7o
+username 
+password 
+validar username -109
+validar password -86
+validar 0
+Buffer[1] marcela
+Buffer[2] VNyXyTwH7o
+username 
+password 
+validar username -109
+validar password -86
+validar 0
+Buffer[1] marcela
+Buffer[2] VNyXyTwH7o
+username 
+password 
+validar username -109
+validar password -86
+validar 0
+Buffer[1] marcela
+Buffer[2] VNyXyTwH7o
+username 
+password 
+validar username -109
+validar password -86
+validar 0
+Buffer[1] marcela
+Buffer[2] VNyXyTwH7o
+username 
+password 
+validar username -109
+validar password -86
+validar 0

@@ -20,31 +20,34 @@ struct _user
 };
 
 int readConfig(struct _user *users) {
-	FILE *fp = fopen("config.txt", "r");
-    const char s[1] = ";";
-    char *token;
-	int firstLine = 0, i = 0;
+    char *filename = "config.txt";
+    FILE *fp = fopen(filename, "r");
 
-    if(fp != NULL) {
-        char line[100];
-        while(fgets(line, sizeof line, fp) != NULL) {
-            line[strcspn(line, "\n")] = 0;
-			if (firstLine > 0) {
-				token = strtok(line, s);
-				strcpy(users[i].username, token);
-				token = strtok(NULL,s);
-				strcpy(users[i].password, token);
-				i++;
-			} else {
-				firstLine = 1;
-			}
-        }
-        fclose(fp);
-    } else {
+    if (fp == NULL) {
         fprintf(ptrLogs, "Config.txt error.\n");
         fflush(ptrLogs);
-        return 1;
-    } 
+    };
+
+    const unsigned MAX_LENGTH = 256;
+    char buffer[MAX_LENGTH];
+    int i = 0, firstLine = 0;
+
+    while (fgets(buffer, MAX_LENGTH, fp)) {
+        if (firstLine == 0) {
+            firstLine = 1;
+        } else {
+            buffer[strcspn(buffer, "\n")] = 0;
+            buffer[strcspn(buffer, "\r")] = 0;
+            printf("%s", buffer);
+            char* sp = ";";
+            char* user = strtok(buffer, sp);
+            char* password = strtok(NULL, sp);
+            strcpy(users[i].username, user);
+            strcpy(users[i].password, password);
+            i++;
+        }
+    }
+    fclose(fp);
 
     return 0;
 };
@@ -91,6 +94,7 @@ int main() {
     printf("Starting Daemon-Server\n");
     daemonize();
 
+    // SOCKET
     ptrLogs = fopen("daemonLogs.txt", "w");
 
     int s, c, new_socket, data;
@@ -126,44 +130,44 @@ int main() {
     fprintf(ptrLogs, "Waiting for connections...\n");
     fflush(ptrLogs);
 
+    // GET CONFIG DATA
+    struct _user users[10] = {"", ""};
+    readConfig(users);
+
     // ACCEPT CONNECTIONS
-    while(1) { 
-        while ((new_socket = accept(s, (struct sockaddr*)&address, (socklen_t*)&addrlen))) {
-            fprintf(ptrLogs, "Connected, pending authentication.\n");
-            fflush(ptrLogs);
+    while ((new_socket = accept(s, (struct sockaddr*)&address, (socklen_t*)&addrlen))) {
+        fprintf(ptrLogs, "Connected, pending authentication.\n");            
+        fflush(ptrLogs);
 
-            // GET CONFIG DATA
-            struct _user users[10] = {"", ""};
-            readConfig(users);
+        // GET OPTION
+        data = read(new_socket, buffer, sizeof(buffer));
 
-            // GET OPTION
-            data = read(new_socket, buffer, sizeof(buffer));
+        switch (atoi(buffer[0])) {
+			case 0:
+                for (int i = 0; i < 10; i++) {
+                    int validUsername = strcmp(users[i].username, buffer[1]);
+                    int validPassword = strcmp(users[i].username, buffer[2]);
+                    fprintf(ptrLogs, "Buffer[1] %s\n", buffer[1]);
+                    fflush(ptrLogs);
+                    fprintf(ptrLogs, "Buffer[2] %s\n", buffer[2]);
+                    fflush(ptrLogs);
+                    fprintf(ptrLogs, "username %s\n", users[i].username);
+                    fflush(ptrLogs);
+                    fprintf(ptrLogs, "password %s\n", users[i].password);
+                    fflush(ptrLogs);
+                    fprintf(ptrLogs, "validar username %d\n", validUsername);
+                    fflush(ptrLogs);                        
+                    fprintf(ptrLogs, "validar password %d\n", validPassword);
+                    fflush(ptrLogs);
+                    fprintf(ptrLogs, "validar %d\n", validUsername == 0 && validPassword == 0);
+                    fflush(ptrLogs);
 
-            switch (atoi(buffer[0])) {
-			    case 0:
-                    for (int i = 0; i < 10; i++) {
-                        int validUsername = strcmp(users[i].username, buffer[1]);
-                        int validPassword = strcmp(users[i].username, buffer[2]);
-                        fprintf(ptrLogs, "Buffer[1] %s\n", buffer[1]);
-                        fflush(ptrLogs);
-                        fprintf(ptrLogs, "Buffer[2] %s\n", buffer[2]);
-                        fflush(ptrLogs);
-                        fprintf(ptrLogs, "username %s\n", users[i].username);
-                        fflush(ptrLogs);
-                        fprintf(ptrLogs, "password %s\n", users[i].password);
-                        fflush(ptrLogs);
-                        fprintf(ptrLogs, "validar username %d\n", validUsername);
-                        fflush(ptrLogs);
-                        fprintf(ptrLogs, "validar password %d\n", validPassword);
-                        fflush(ptrLogs);
-                        fprintf(ptrLogs, "validar %d\n", validUsername == 0 && validPassword == 0);
-                        fflush(ptrLogs);
-
-                        if(validUsername == 0 && validPassword == 0) {
-                            send(new_socket, "1", strlen("1"), 0);
-                            break;
+                    if(validUsername == 0 && validPassword == 0) {
+                        send(new_socket, "1", strlen("1"), 0);
+                        break;                        
                         }
                     };
+
                     send(new_socket, "0", strlen("0"), 0);
                     break;
                 default:
@@ -173,7 +177,6 @@ int main() {
             // read(new_socket, buffer, 1024);
             // Send
             // send(new_socket, "Hello", strlen("Hello"), 0);
-        };
 
         if (new_socket < 0) {
             fprintf(ptrLogs, "Accept failed.\n");

@@ -10,10 +10,9 @@ int main(int argc, char const* argv[])
 {
     int s = 0, valread;
     struct sockaddr_in serv_addr;
-    char* message = "Hello from client";
+    char *message;
     char buffer[1024] = { 0 };
-    char username[25], password[25];
-    char user[3][25];
+    char username[20], password[20];
 
     // CREATE
     if ((s = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -43,12 +42,14 @@ int main(int argc, char const* argv[])
     printf("Contraseña: ");
     scanf("%s", password);
 
-    strcpy(user[0], "0");
-    strcpy(user[1], username);
-    strcpy(user[2], password);
+    strcat(message,"0;");
+    strcat(message,username);
+    strcat(message,";");
+    strcat(message,password);
+    strcat(message,";");
 
     // Send user data.
-    if (send(s, user, sizeof(user), 0) < 0) {
+    if (send(s, message, strlen(message), 0) < 0) {
 		puts("Send failed.");
 		return 1;
 	}
@@ -59,8 +60,10 @@ int main(int argc, char const* argv[])
 		puts("Valread failed.");
 	}
 
+    printf("%s", buffer);
+
     // If return value is equal to 1 user data is valid, if it is equal to 0 user data is invalid.
-    if (atoi(buffer)/10 == 1) {
+    if (atoi(buffer) == 1) {
         puts("Connected.");
         // Se despliga menú de opciones: SELECT, INSERT, JOIN.
 

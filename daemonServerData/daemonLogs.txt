@@ -1,3 +1,0 @@
-Socket has been created.
-Bound.
-Waiting for connections...

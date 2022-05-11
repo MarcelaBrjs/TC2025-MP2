@@ -1,0 +1,4 @@
+idDept;nombre;descripcion;piso;presupuesto;
+1;Desarrollo;Realiza las actividades informáticas dedicadas al proceso de creación, diseño, despliegue y compatibilidad del software a vender.;2;150000;
+2;Finanzas;Realiza los pagos a los que está obligada la propia empresa, así como la gestión de las partidas de gastos e ingresos que tiene la misma.;3;60000;
+3;Mercadotecnia;Encargados de trabajar en la promoción de la empresa y la marca en el mercado.;2;85000;

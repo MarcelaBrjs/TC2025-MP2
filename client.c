@@ -8,7 +8,7 @@
  
 int main(int argc, char const* argv[])
 {
-    int s = 0, valread;
+    int s = 0;
     struct sockaddr_in serv_addr;
     char *message;
     char buffer[1024] = { 0 };
@@ -64,39 +64,32 @@ int main(int argc, char const* argv[])
 	    printf("4. Hacer query JOIN.\n");
 	    printf("5. Hacer query INSERT.\n");
 	    printf("0. Salir.\n");
-	    printf("Teclee la opción deseada: ");
-	    
+	    printf("Ingrese la opción deseada [0-5]: ");
         scanf("%d", &opcion);
+
 	    do {
             switch (opcion) {
-                case 0:
-                    // Enviar 6.
-                    printf("Cerrar.\n");
-                    send(s, "6;", strlen("6;"), 0);
-                    opcion = 6;
-                    break;
                 case 1:
-                    printf("Imprimir tabla 1.\n");
-                    send(s, "1;Datos tabla 1;", strlen("1;Datos tabla 1;"), 0);
-                    // printf("Tabla 1\n");
-                    // impresionTabla1(empleados, contEmp);
+                    send(s, "1;", strlen("1;"), 0);
+                    recv(s, buffer , 1024 , 0);
+                    printf("Tabla 1\n");
+                    printf("%s\n", buffer);
+                    // Imprimir información de la tabla 1.
                     break;
                 case 2:
-                    printf("Imprimir tabla 2.\n");
-                    // printf("Tabla 2\n");
-                    // impresionTabla2(departamentos, contDept);
+                    send(s, "2;", strlen("2;"), 0);
+                    recv(s, buffer , 1024 , 0);
+                    printf("Tabla 2\n");
+                    // Imprimir información de la tabla 2.
                     break;
                 case 3:
-                    printf("Select.\n");
-                    // printf("Query SELECT\n");
+                    printf("Query SELECT\n");
                     break;
                 case 4:
-                    printf("Query.\n");
-                    // printf("Query JOIN\n");
+                    printf("Query JOIN\n");
                     break;
                 case 5:
-                    printf("Insert.\n");
-                    // printf("\nQuery INSERT\n");
+                    printf("\nQuery INSERT\n");
                     break;
                 default:
                     printf("Opción inválida, intente de nuevo.\n");
@@ -109,14 +102,17 @@ int main(int argc, char const* argv[])
             printf("4. Hacer query JOIN.\n");
             printf("5. Hacer query INSERT.\n");
             printf("0. Salir.\n");
-            printf("Teclee la opción deseada: ");
+            printf("Ingrese la opción deseada [0-5]: ");
             scanf("%d", &opcion);
-	    } while (opcion != 6);
+	    } while (opcion != 0);
     } else {
         puts("Credenciales inválidas.");
         return 1;
     }
 
+    send(s, "0;", strlen("0;"), 0);
+    printf("Sesión cerrada.\n");
+        
     close(s);
     return 0;
 }

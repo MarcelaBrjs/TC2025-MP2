@@ -137,12 +137,11 @@ int main() {
     // ACCEPT CONNECTIONS
     while ((new_socket = accept(s, (struct sockaddr*)&address, (socklen_t*)&addrlen))) {
         // GET OPTION
-        
         while((data = recv(new_socket, buffer , 1024 , 0))) {
             char* sp = ";";
             char* option = strtok(buffer, sp);
             
-            if(atoi(option) == 0) {
+            if(strcmp(option, "auth") == 0) {
                 char* user = strtok(NULL, sp);
                 char* password = strtok(NULL, sp);
 
@@ -161,6 +160,8 @@ int main() {
                 }
             } else if (atoi(option) == 1) {
                 // Obtener datos de la tabla 1 - empleados.
+                // Ejemplo:
+                send(new_socket, "Tabla 1", strlen("Tabla 1"), 0);
             } else if (atoi(option) == 2) {
                 // Obtener datos de la tabla 2 - departamentos.
             } else if (atoi(option) == 3) {
@@ -169,9 +170,9 @@ int main() {
                 // Join
             } else if (atoi(option) == 5) {
                 // Insert
-            } else if (atoi(option) == 6) {
+            } else if (atoi(option) == 0) {
                 // Cerrar
-                fprintf(ptrLogs, "Close user account.\n");            
+                fprintf(ptrLogs, "Closing user account.\n");            
                 fflush(ptrLogs);
             }
         }

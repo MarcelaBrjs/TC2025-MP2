@@ -1,0 +1,5 @@
+Socket has been created.
+Bound.
+Waiting for connections...
+Connected, user authenticated.
+Closing user account.

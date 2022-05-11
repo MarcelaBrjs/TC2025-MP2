@@ -61,6 +61,7 @@ int main(int argc, char const *argv[])
     {
         // puts("Connected.");
         printf("\nBase de Datos de Empleados y Departamentos\n");
+<<<<<<< HEAD
 	    printf("Opciones:\n");
 	    printf("1. Ver tabla 1 - Empleados.\n");
 	    printf("2. Ver tabla 2 - Departamentos.\n");
@@ -97,6 +98,51 @@ int main(int argc, char const *argv[])
                     break;
                 default:
                     printf("Opción inválida, intente de nuevo.\n");
+=======
+        printf("Opciones:\n");
+        printf("1. Ver tabla 1 - Empleados.\n");
+        printf("2. Ver tabla 2 - Departamentos.\n");
+        printf("3. Hacer query SELECT.\n");
+        printf("4. Hacer query JOIN.\n");
+        printf("5. Hacer query INSERT.\n");
+        printf("0. Salir.\n");
+        printf("Teclee la opción deseada: ");
+
+        scanf("%d", &opcion);
+        do
+        {
+            switch (opcion)
+            {
+            case 0:
+                // Enviar 6.
+                printf("Cerrar.\n");
+                send(s, "6;", strlen("6;"), 0);
+                opcion = 6;
+                break;
+            case 1:
+                printf("Imprimir tabla 1.\n");
+                send(s, "1;Datos tabla 1;", strlen("1;Datos tabla 1;"), 0);
+                // impresionTabla1(empleados, contEmp);
+                break;
+            case 2:
+                printf("Imprimir tabla 2.\n");
+                // impresionTabla2(departamentos, contDept);
+                break;
+            case 3:
+                printf("Select.\n");
+                // printf("Query SELECT\n");
+                break;
+            case 4:
+                printf("Query.\n");
+                // printf("Query JOIN\n");
+                break;
+            case 5:
+                printf("Insert.\n");
+                // printf("\nQuery INSERT\n");
+                break;
+            default:
+                printf("Opción inválida, intente de nuevo.\n");
+>>>>>>> d7ee01f52c1fbdbdbfa50426915395062f27fb96
             }
             printf("\nBase de Datos de Empleados y Departamentos\n");
             printf("Opciones:\n");
@@ -108,8 +154,15 @@ int main(int argc, char const *argv[])
             printf("0. Salir.\n");
             printf("Ingrese la opción deseada [0-5]: ");
             scanf("%d", &opcion);
+<<<<<<< HEAD
 	    } while (opcion != 0);
     } else {
+=======
+        } while (opcion != 6);
+    }
+    else
+    {
+>>>>>>> d7ee01f52c1fbdbdbfa50426915395062f27fb96
         puts("Credenciales inválidas.");
         return 1;
     }

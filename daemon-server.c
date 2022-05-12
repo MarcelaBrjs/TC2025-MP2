@@ -94,72 +94,72 @@ int readTable1(struct _empleado *empleados)
     char line[300];
     int contEmp = 0;
 
-        while (fgets(line, sizeof(line), fp))
+    while (fgets(line, sizeof(line), fp))
+    {
+        int state = 0;
+        int finished = 0;
+
+        // Que no sea la primera línea y que no haya terminado de leer la línea
+        while (contEmp != 0 && state < 5)
         {
-            int state = 0;
-            int finished = 0;
+            char elem[150] = {NULL};
 
-            // Que no sea la primera línea y que no haya terminado de leer la línea
-            while (contEmp != 0 && state < 5)
+            // Obtener primera palabra antes del ;
+            char *token = strtok(line, ";");
+            strcpy(elem, token);
+
+            while (token != NULL && finished == 0)
             {
-                char elem[150] = {NULL};
-
-                // Obtener primera palabra antes del ;
-                char *token = strtok(line, ";");
-                strcpy(elem, token);
-
-                while (token != NULL && finished == 0)
+                switch (state)
                 {
-                    switch (state)
-                    {
-                    case 0:
-                        empleados[contEmp - 1].id = atoi(elem);
-                        break;
-                    case 1:
-                        strcpy(empleados[contEmp - 1].nombre, elem);
-                        break;
-                    case 2:
-                        strcpy(empleados[contEmp - 1].apellidos, elem);
-                        break;
-                    case 3:
-                        empleados[contEmp - 1].idDept = atoi(elem);
-                        break;
-                    case 4:
-                        strcpy(empleados[contEmp - 1].fechaNacim, elem);
-                        break;
-                    case 5:
-                        strcpy(empleados[contEmp - 1].fechaContrat, elem);
-                        break;
-                    case 6:
-                        strcpy(empleados[contEmp - 1].ciudad, elem);
-                        break;
-                    case 7:
-                        empleados[contEmp - 1].proyActuales = atoi(elem);
-                        break;
-                    case 8:
-                        empleados[contEmp - 1].salario = atof(elem);
-                        finished = 1;
-                        break;
-                    default:
-                        printf("done");
-                    }
-                    state++;
+                case 0:
+                    empleados[contEmp - 1].id = atoi(elem);
+                    break;
+                case 1:
+                    strcpy(empleados[contEmp - 1].nombre, elem);
+                    break;
+                case 2:
+                    strcpy(empleados[contEmp - 1].apellidos, elem);
+                    break;
+                case 3:
+                    empleados[contEmp - 1].idDept = atoi(elem);
+                    break;
+                case 4:
+                    strcpy(empleados[contEmp - 1].fechaNacim, elem);
+                    break;
+                case 5:
+                    strcpy(empleados[contEmp - 1].fechaContrat, elem);
+                    break;
+                case 6:
+                    strcpy(empleados[contEmp - 1].ciudad, elem);
+                    break;
+                case 7:
+                    empleados[contEmp - 1].proyActuales = atoi(elem);
+                    break;
+                case 8:
+                    empleados[contEmp - 1].salario = atof(elem);
+                    finished = 1;
+                    break;
+                default:
+                    printf("done");
+                }
+                state++;
 
-                    if (finished != 1)
-                    {
-                        // Obtener palabra antes del ;
-                        token = strtok(NULL, ";");
-                        strcpy(elem, token);
-                    }
+                if (finished != 1)
+                {
+                    // Obtener palabra antes del ;
+                    token = strtok(NULL, ";");
+                    strcpy(elem, token);
                 }
             }
-
-            // Cambiar de línea de registros
-            contEmp++;
         }
 
-        fclose(fp);
-    
+        // Cambiar de línea de registros
+        contEmp++;
+    }
+
+    fclose(fp);
+
     return contEmp;
 }
 
@@ -177,59 +177,59 @@ int readTable2(struct _departamento *departamentos)
     char line[300];
     int contDept = 0;
 
-        while (fgets(line, sizeof(line), fp))
+    while (fgets(line, sizeof(line), fp))
+    {
+        int state = 0;
+        int finished = 0;
+
+        // Que no sea la primera línea y que no haya terminado de leer la línea
+        while (contDept != 0 && state < 5)
         {
-            int state = 0;
-            int finished = 0;
+            char elem[150] = {NULL};
 
-            // Que no sea la primera línea y que no haya terminado de leer la línea
-            while (contDept != 0 && state < 5)
+            // Obtener primera palabra antes del ;
+            char *token = strtok(line, ";");
+            strcpy(elem, token);
+
+            while (token != NULL && finished == 0)
             {
-                char elem[150] = {NULL};
-
-                // Obtener primera palabra antes del ;
-                char *token = strtok(line, ";");
-                strcpy(elem, token);
-
-                while (token != NULL && finished == 0)
+                switch (state)
                 {
-                    switch (state)
-                    {
-                    case 0:
-                        departamentos[contDept - 1].idDept = atoi(elem);
-                        break;
-                    case 1:
-                        strcpy(departamentos[contDept - 1].nombre, elem);
-                        break;
-                    case 2:
-                        strcpy(departamentos[contDept - 1].descripcion, elem);
-                        break;
-                    case 3:
-                        departamentos[contDept - 1].piso = atoi(elem);
-                        break;
-                    case 4:
-                        departamentos[contDept - 1].presupuesto = atof(elem);
-                        finished = 1;
-                        break;
-                    default:
-                        printf("done");
-                    }
-                    state++;
+                case 0:
+                    departamentos[contDept - 1].idDept = atoi(elem);
+                    break;
+                case 1:
+                    strcpy(departamentos[contDept - 1].nombre, elem);
+                    break;
+                case 2:
+                    strcpy(departamentos[contDept - 1].descripcion, elem);
+                    break;
+                case 3:
+                    departamentos[contDept - 1].piso = atoi(elem);
+                    break;
+                case 4:
+                    departamentos[contDept - 1].presupuesto = atof(elem);
+                    finished = 1;
+                    break;
+                default:
+                    printf("done");
+                }
+                state++;
 
-                    if (finished != 1)
-                    {
-                        // Obtener palabra antes del ;
-                        token = strtok(NULL, ";");
-                        strcpy(elem, token);
-                    }
+                if (finished != 1)
+                {
+                    // Obtener palabra antes del ;
+                    token = strtok(NULL, ";");
+                    strcpy(elem, token);
                 }
             }
-
-                // Cambiar de línea de registros
-                contDept++;
         }
 
-        fclose(fp);
+        // Cambiar de línea de registros
+        contDept++;
+    }
+
+    fclose(fp);
 
     return contDept;
 }
@@ -255,6 +255,398 @@ void getTable2(struct _departamento *departamentos, int contDept, char string[20
         strcat(string, temp);
     }
 };
+
+void selectTabla1(struct _empleado *empleados, int contEmp, int columnas[9], int opp, int col, int valNum, char valStr[150])
+{
+	for (int i = 0; i < contEmp; i++)
+	{
+		switch (col)
+		{
+		case 1: // id
+			if (opp == 1)
+			{
+				if (empleados[i].id != valNum)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (empleados[i].id == valNum)
+					continue;
+			}
+			else if (opp == 3)
+			{
+				if (empleados[i].id > valNum)
+					continue;
+			}
+			else if (opp == 4)
+			{
+				if (empleados[i].id < valNum)
+					continue;
+			}
+			break;
+		case 2: // nombre
+			if (opp == 1)
+			{
+				if (strcasecmp(empleados[i].nombre, valStr) != 0)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (strcasecmp(empleados[i].nombre, valStr) == 0)
+					continue;
+			}
+			break;
+		case 3: // apellidos
+			if (opp == 1)
+			{
+				if (strcasecmp(empleados[i].apellidos, valStr) != 0)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (strcasecmp(empleados[i].apellidos, valStr) == 0)
+					continue;
+			}
+			break;
+		case 4: // idDept
+			if (opp == 1)
+			{
+				if (empleados[i].idDept != valNum)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (empleados[i].idDept == valNum)
+					continue;
+			}
+			else if (opp == 3)
+			{
+				if (empleados[i].idDept > valNum)
+					continue;
+			}
+			else if (opp == 4)
+			{
+				if (empleados[i].idDept < valNum)
+					continue;
+			}
+			break;
+		case 5: // fechaNacimiento
+			if (opp == 1)
+			{
+				if (strcasecmp(empleados[i].fechaNacim, valStr) != 0)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (strcasecmp(empleados[i].fechaNacim, valStr) == 0)
+					continue;
+			}
+			break;
+		case 6: // fechaContra
+			if (opp == 1)
+			{
+				if (strcasecmp(empleados[i].fechaContrat, valStr) != 0)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (strcasecmp(empleados[i].fechaContrat, valStr) == 0)
+					continue;
+			}
+			break;
+		case 7: // ciudad
+			if (opp == 1)
+			{
+				if (strcasecmp(empleados[i].ciudad, valStr) != 0)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (strcasecmp(empleados[i].ciudad, valStr) == 0)
+					continue;
+			}
+			break;
+		case 8: // proyecto actuales
+			if (opp == 1)
+			{
+				if (empleados[i].proyActuales != valNum)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (empleados[i].proyActuales == valNum)
+					continue;
+			}
+			else if (opp == 3)
+			{
+				if (empleados[i].proyActuales > valNum)
+					continue;
+			}
+			else if (opp == 4)
+			{
+				if (empleados[i].proyActuales < valNum)
+					continue;
+			}
+			break;
+		case 9: // salario
+			if (opp == 1)
+			{
+				if (empleados[i].salario != valNum)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (empleados[i].salario == valNum)
+					continue;
+			}
+			else if (opp == 3)
+			{
+				if (empleados[i].salario > valNum)
+					continue;
+			}
+			else if (opp == 4)
+			{
+				if (empleados[i].salario < valNum)
+					continue;
+			}
+			break;
+
+		default:
+			break;
+		}
+		if (columnas[0] == 1)
+		{
+			printf("%d;", empleados[i].id);
+		}
+		if (columnas[1] == 1)
+		{
+			printf("%s;", empleados[i].nombre);
+		}
+		if (columnas[2] == 1)
+		{
+			printf("%s;", empleados[i].apellidos);
+		}
+		if (columnas[3] == 1)
+		{
+			printf("%d;", empleados[i].idDept);
+		}
+		if (columnas[4] == 1)
+		{
+			printf("%s;", empleados[i].fechaNacim);
+		}
+		if (columnas[5] == 1)
+		{
+			printf("%s;", empleados[i].fechaContrat);
+		}
+		if (columnas[6] == 1)
+		{
+			printf("%s;", empleados[i].ciudad);
+		}
+		if (columnas[7] == 1)
+		{
+			printf("%d;", empleados[i].proyActuales);
+		}
+		if (columnas[8] == 1)
+		{
+			printf("%0.f;", empleados[i].salario);
+		}
+		printf("\n");
+	}
+};
+
+void selectTabla2(struct _departamento *departamentos, int contDept, int columnas[9], int opp, int col, int valNum, char valStr[150])
+{
+	for (int i = 0; i < contDept; i++)
+	{
+		switch (col)
+		{
+		case 1: // idDept
+			if (opp == 1)
+			{
+				if (departamentos[i].idDept != valNum)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (departamentos[i].idDept == valNum)
+					continue;
+			}
+			else if (opp == 3)
+			{
+				if (departamentos[i].idDept > valNum)
+					continue;
+			}
+			else if (opp == 4)
+			{
+				if (departamentos[i].idDept < valNum)
+					continue;
+			}
+			break;
+		case 2: // nombre
+			if (opp == 1)
+			{
+				if (strcasecmp(departamentos[i].nombre, valStr) != 0)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (strcasecmp(departamentos[i].nombre, valStr) == 0)
+					continue;
+			}
+			break;
+		case 3: // descripcion
+			if (opp == 1)
+			{
+				if (strcasecmp(departamentos[i].descripcion, valStr) != 0)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (strcasecmp(departamentos[i].descripcion, valStr) == 0)
+					continue;
+			}
+			break;
+		case 4: // piso
+			if (opp == 1)
+			{
+				if (departamentos[i].piso != valNum)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (departamentos[i].piso == valNum)
+					continue;
+			}
+			else if (opp == 3)
+			{
+				if (departamentos[i].piso > valNum)
+					continue;
+			}
+			else if (opp == 4)
+			{
+				if (departamentos[i].piso < valNum)
+					continue;
+			}
+			break;
+		case 5: // presupuesto
+			if (opp == 1)
+			{
+				if (departamentos[i].presupuesto != valNum)
+					continue;
+			}
+			else if (opp == 2)
+			{
+				if (departamentos[i].presupuesto == valNum)
+					continue;
+			}
+			else if (opp == 3)
+			{
+				if (departamentos[i].presupuesto > valNum)
+					continue;
+			}
+			else if (opp == 4)
+			{
+				if (departamentos[i].presupuesto < valNum)
+					continue;
+			}
+			break;
+		default:
+			break;
+		}
+		if (columnas[0] == 1)
+		{
+			printf("%d;", departamentos[i].idDept);
+		}
+		if (columnas[1] == 1)
+		{
+			printf("%s;", departamentos[i].nombre);
+		}
+		if (columnas[2] == 1)
+		{
+			printf("%s;", departamentos[i].descripcion);
+		}
+		if (columnas[3] == 1)
+		{
+			printf("%d;", departamentos[i].piso);
+		}
+		if (columnas[4] == 1)
+		{
+			printf("%0.f;", departamentos[i].presupuesto);
+		}
+		printf("\n");
+	}
+};
+
+void joinTable(struct _empleado *empleados, int contEmp, int columnas1[9], struct _departamento *departamentos, int contDept, int columnas2[5], int col1, int col2)
+{
+	for (int i = 0; i < contEmp; i++)
+	{
+		if (columnas1[0] == 1)
+		{
+			printf("%d;", empleados[i].id);
+		}
+		if (columnas1[1] == 1)
+		{
+			printf("%s;", empleados[i].nombre);
+		}
+		if (columnas1[2] == 1)
+		{
+			printf("%s;", empleados[i].apellidos);
+		}
+		if (columnas1[3] == 1)
+		{
+			printf("%d;", empleados[i].idDept);
+		}
+		if (columnas1[4] == 1)
+		{
+			printf("%s;", empleados[i].fechaNacim);
+		}
+		if (columnas1[5] == 1)
+		{
+			printf("%s;", empleados[i].fechaContrat);
+		}
+		if (columnas1[6] == 1)
+		{
+			printf("%s;", empleados[i].ciudad);
+		}
+		if (columnas1[7] == 1)
+		{
+			printf("%d;", empleados[i].proyActuales);
+		}
+		if (columnas1[8] == 1)
+		{
+			printf("%0.f;", empleados[i].salario);
+		}
+		for (int j = 0; j < contDept; j++)
+		{
+			if (empleados[i].idDept == departamentos[j].idDept)
+			{
+				if (columnas2[0] == 1)
+				{
+					printf("%d;", departamentos[j].idDept);
+				}
+				if (columnas2[1] == 1)
+				{
+					printf("%s;", departamentos[j].nombre);
+				}
+				if (columnas2[2] == 1)
+				{
+					printf("%s;", departamentos[j].descripcion);
+				}
+				if (columnas2[3] == 1)
+				{
+					printf("%d;", departamentos[j].piso);
+				}
+				if (columnas2[4] == 1)
+				{
+					printf("%0.f;", departamentos[j].presupuesto);
+				}
+				break;
+			}
+		}
+		printf("\n");
+	}
+}
 
 static void daemonize()
 {
@@ -350,21 +742,24 @@ int main()
     while ((new_socket = accept(s, (struct sockaddr *)&address, (socklen_t *)&addrlen)))
     {
         // GET OPTION
-        while((data = recv(new_socket, buffer, 1024 , 0))) {
+        while ((data = recv(new_socket, buffer, 1024, 0)))
+        {
             fprintf(ptrLogs, "%lu\n", strlen(buffer));
             fflush(ptrLogs);
             fprintf(ptrLogs, "%s\n", buffer);
             fflush(ptrLogs);
 
-            char* sp = ";";
-            char* option = strtok(buffer, sp);
-            
-            if(strcmp(option, "auth") == 0) {
-                char* user = strtok(NULL, sp);
-                char* password = strtok(NULL, sp);
-                memset(buffer,0,sizeof(buffer));
+            char *sp = ";";
+            char *option = strtok(buffer, sp);
 
-                for (int i = 0; i < 10; i++) {
+            if (strcmp(option, "auth") == 0)
+            {
+                char *user = strtok(NULL, sp);
+                char *password = strtok(NULL, sp);
+                memset(buffer, 0, sizeof(buffer));
+
+                for (int i = 0; i < 10; i++)
+                {
                     int validUsername = strcmp(users[i].username, user);
                     int validPassword = strcmp(users[i].password, password);
 
@@ -387,26 +782,119 @@ int main()
                 char string[20000];
                 getTable1(empleados, contEmp, string);
                 send(new_socket, string, strlen(string), 0);
-                memset(string,0,sizeof(string));
-            } else if (atoi(option) == 2) {
+                memset(string, 0, sizeof(string));
+            }
+            else if (atoi(option) == 2)
+            {
                 // Obtener datos de la tabla 2 - departamentos.
                 char string2[20000];
                 getTable2(departamentos, contDept, string2);
                 send(new_socket, string2, strlen(string2), 0);
-                memset(string2,0,sizeof(string2));
+                memset(string2, 0, sizeof(string2));
             }
             else if (atoi(option) == 3)
             {
-                // Select.
+                // Select
+                char *content = strtok(NULL, sp);
+                fprintf(ptrLogs, "Content %s\n", content);
+                fflush(ptrLogs);
+
+                char *columnas = strtok(NULL, sp);
+                int opp = atoi(strtok(NULL, sp));
+                int col = atoi(strtok(NULL, sp));
+                char *val = strtok(NULL, sp);
+
+                if (strcmp(content, "1") == 0)
+                {
+                    int columnasInt[9];
+
+                    for(int i = 0; i < 9; i++) {
+                        int op;
+                        op = (int)(columnas[i]);
+                        if (op == 49) {
+                            columnasInt[i] = 1;
+                        } else if (op == 48) {
+                            columnasInt[i] = 0;
+                        }
+                    }
+
+                    char string3a[20000];
+                    // En columnasInt ya está un array con los valores de columnas.
+                    // Necesito que selectTabla1 termine en que string3a tenga guardado un string gigante con todo lo que se va a retornar a client.c. Referencia en case 1 y 2, hechos por Lorena.
+                    // selectTabla1(empleados, contEmp, columnasInt, opp, col, valNum, val);
+
+                    // Una vez que ya esté en string3a, descomentar los siguientes dos comandos.
+                    // send(new_socket, string3a, strlen(string3a), 0);
+                    // memset(string3a, 0, sizeof(string3a));
+                }
+                else if (strcmp(content, "2") == 0)
+                {
+                    int columnasInt[5];
+
+                    for(int i = 0; i < 5; i++) {
+                        int op;
+                        op = (int)(columnas[i]);
+                        if (op == 49) {
+                            columnasInt[i] = 1;
+                        } else if (op == 48) {
+                            columnasInt[i] = 0;
+                        }
+                    }
+
+                    char string3b[20000];
+                    // En columnasInt ya está un array con los valores de columnas.
+                    // Necesito que selectTabla1 termine en que string3a tenga guardado un string gigante con todo lo que se va a retornar a client.c
+                    // selectTabla2(empleados, contEmp, columnasInt, opp, col, valNum, val);
+
+                    // Una vez que ya esté en string3b, descomentar los siguientes dos comandos.
+                    // send(new_socket, string3b, strlen(string3b), 0);
+                    // memset(string3b, 0, sizeof(string3b));
+                }
             }
             else if (atoi(option) == 4)
             {
                 // Join.
+                char *columnasT1 = strtok(NULL, sp);
+                char *columnasT2 = strtok(NULL, sp);
+                int col1 = atoi(strtok(NULL, sp));
+                int col2 = atoi(strtok(NULL, sp));
+
+                int columnasT1Int[9];
+                int columnasT2Int[5];
+
+                for(int i = 0; i < 9; i++) {
+                    int op;
+                    op = (int)(columnasT1[i]);
+                    if (op == 49) {
+                        columnasT1Int[i] = 1;
+                    } else if (op == 48) {
+                        columnasT1Int[i] = 0;
+                    }
+                }
+
+                for(int i = 0; i < 5; i++) {
+                    int op;
+                    op = (int)(columnasT2[i]);
+                    if (op == 49) {
+                        columnasT1Int[i] = 1;
+                    } else if (op == 48) {
+                        columnasT2Int[i] = 0;
+                    }
+                }
+
+                char string4[20000];
+                // En columnasT1Int y columnasT2Int ya está un array con los valores de columnas.
+                // Necesito que joinTable termine en que string4 tenga guardado un string gigante con todo lo que se va a retornar a client.c
+                // joinTable(empleados, contEmp, columnasT1Int, departamentos, contDept, columnasT2Int, col1, col2);
+
+                // Una vez que ya esté en string4, descomentar los siguientes dos comandos.
+                // send(new_socket, string4, strlen(string4), 0);
+                // memset(string4, 0, sizeof(string4));
             }
             else if (atoi(option) == 5)
             {
                 // Insert
-                char* content = strtok(NULL, sp);
+                char *content = strtok(NULL, sp);
                 fprintf(ptrLogs, "Content %s\n", content);
                 fflush(ptrLogs);
 
@@ -415,14 +903,14 @@ int main()
                     FILE *fp = fopen("table_1.txt", "a");
 
                     if (fp != NULL)
-                    {   
+                    {
                         int id_t = atoi(strtok(NULL, sp));
-                        char* nombre_t = strtok(NULL, sp);
-                        char* apellidos_t = strtok(NULL, sp);
+                        char *nombre_t = strtok(NULL, sp);
+                        char *apellidos_t = strtok(NULL, sp);
                         int idDept_t = atoi(strtok(NULL, sp));
-                        char* fechaNacim_t = strtok(NULL, sp);
-                        char* fechaContrat_t = strtok(NULL, sp);
-                        char* ciudad_t = strtok(NULL, sp);
+                        char *fechaNacim_t = strtok(NULL, sp);
+                        char *fechaContrat_t = strtok(NULL, sp);
+                        char *ciudad_t = strtok(NULL, sp);
                         int proyActuales_t = atoi(strtok(NULL, sp));
                         double salario_t = atof(strtok(NULL, sp));
 
@@ -436,7 +924,7 @@ int main()
                         strcpy(empleados[contEmp - 1].ciudad, ciudad_t);
                         empleados[contEmp - 1].proyActuales = proyActuales_t;
                         empleados[contEmp - 1].salario = salario_t;
-                        
+
                         fprintf(fp, "\n%d;%s;%s;%d;%s;%s;%s;%d;%.0f;", id_t, nombre_t, apellidos_t, idDept_t, fechaNacim_t, fechaContrat_t, ciudad_t, proyActuales_t, salario_t);
                         fflush(fp);
 
@@ -452,10 +940,10 @@ int main()
                     FILE *fp = fopen("table_2.txt", "a");
 
                     if (fp != NULL)
-                    {   
+                    {
                         int idDept_t = atoi(strtok(NULL, sp));
-                        char* nombre_t = strtok(NULL, sp);
-                        char* descripcion_t = strtok(NULL, sp);
+                        char *nombre_t = strtok(NULL, sp);
+                        char *descripcion_t = strtok(NULL, sp);
                         int piso_t = atoi(strtok(NULL, sp));
                         double presupuesto_t = atof(strtok(NULL, sp));
 
@@ -465,7 +953,7 @@ int main()
                         strcpy(departamentos[contDept - 1].descripcion, descripcion_t);
                         departamentos[contDept - 1].piso = piso_t;
                         departamentos[contDept - 1].presupuesto = presupuesto_t;
-                        
+
                         fprintf(fp, "\n%d;%s;%s;%d;%.0f;", idDept_t, nombre_t, descripcion_t, piso_t, presupuesto_t);
                         fflush(fp);
 

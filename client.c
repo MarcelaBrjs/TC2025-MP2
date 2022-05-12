@@ -6,7 +6,30 @@
 #include <stdlib.h>
 #define PORT 8080
 
-const char* case5(int insertOpcion, unsigned long *l) {
+void printColumnasTabla1()
+{
+    printf("1. id\n");
+    printf("2. Nombre\n");
+    printf("3. apellidos\n");
+    printf("4. idDepartamento\n");
+    printf("5. Fecha de Nacimiento\n");
+    printf("6. Fecha de Contratacion\n");
+    printf("7. Ciudad\n");
+    printf("8. # de Proyectos act\n");
+    printf("9. Salario\n");
+}
+
+void printColumnasTabla2()
+{
+    printf("1. idDept\n");
+    printf("2. Nombre\n");
+    printf("3. Descripcion\n");
+    printf("4. Piso\n");
+    printf("5. Presupuesto\n");
+}
+
+const char *case5(int insertOpcion, unsigned long *l)
+{
     char string[300];
 
     if (insertOpcion == 1)
@@ -37,7 +60,7 @@ const char* case5(int insertOpcion, unsigned long *l) {
         printf("Salario (double): ");
         scanf("%lf", &salario);
         snprintf(string, sizeof string, "5;1;%d;%s;%s;%d;%s;%s;%s;%d;%.0f;",
-                id, nombre, apellidos, idDept, fechaNacim, fechaContrat, ciudad, proyActuales, salario);
+                 id, nombre, apellidos, idDept, fechaNacim, fechaContrat, ciudad, proyActuales, salario);
     }
     else if (insertOpcion == 2)
     {
@@ -57,10 +80,277 @@ const char* case5(int insertOpcion, unsigned long *l) {
         printf("Presupuesto (double): ");
         scanf("%lf", &presupuesto);
         snprintf(string, sizeof string, "5;2;%d;%s;%s;%d;%.2f;",
-                idDept, nombre, descripcion, piso, presupuesto);
+                 idDept, nombre, descripcion, piso, presupuesto);
     }
     *l = strlen(string);
     return string;
+}
+
+const char *case3(int selectOpcion, unsigned long *m)
+{
+    char string[300];
+
+    if (selectOpcion == 1)
+    {
+        int sel = 0;
+        int col0 = 0;
+        int col1 = 0;
+        int col2 = 0;
+        int col3 = 0;
+        int col4 = 0;
+        int col5 = 0;
+        int col6 = 0;
+        int col7 = 0;
+        int col8 = 0;
+        printColumnasTabla1();
+        printf("0. TERMINAR SELECCION\n");
+        do
+        {
+            printf("Teclee la columna deseada: ");
+            scanf("%d", &sel);
+            if (sel > 0)
+            {
+                switch (sel)
+                {
+                case 1:
+                    col0 = 1;
+                    break;
+                case 2:
+                    col1 = 1;
+                    break;
+                case 3:
+                    col2 = 1;
+                    break;
+                case 4:
+                    col3 = 1;
+                    break;
+                case 5:
+                    col4 = 1;
+                    break;
+                case 6:
+                    col5 = 1;
+                    break;
+                case 7:
+                    col6 = 1;
+                    break;
+                case 8:
+                    col7 = 1;
+                    break;
+                case 9:
+                    col8 = 1;
+                    break;
+                default:
+                    break;
+                }
+            }
+
+        } while (sel != 0);
+
+        int opp = 0;
+        int col = 0;
+        char valStr[150];
+        printf("1. igual (=) \n");
+        printf("2. no igual (!=) \n");
+        printf("3. menor que (<)\n");
+        printf("4. mayor que (>)\n");
+        printf("0. NINGUNA\n");
+        printf("Selecciona operacion para WHERE: ");
+        scanf("%d", &opp);
+
+        if (opp != 0)
+        {
+            printColumnasTabla1();
+            printf("Selecciona la columna: ");
+            scanf("%d", &col);
+            printf("Escibra el valor: ");
+            scanf("%s", &valStr);
+        }
+        snprintf(string, sizeof string, "3;1;%d%d%d%d%d%d%d%d%d;%d;%d;%s;",
+                 col0, col1, col2, col3, col4, col5, col6, col7, col8, opp, col, valStr);
+
+        printf("%s\n", string);
+    }
+    else if (selectOpcion == 2)
+    {
+        int sel = 0;
+        int col0 = 0;
+        int col1 = 0;
+        int col2 = 0;
+        int col3 = 0;
+        int col4 = 0;
+        printColumnasTabla2();
+        printf("0. TERMINAR SELECCION\n");
+        do
+        {
+            printf("Teclee la columna deseada: ");
+            scanf("%d", &sel);
+            if (sel > 0)
+            {
+                switch (sel)
+                {
+                case 1:
+                    col0 = 1;
+                    break;
+                case 2:
+                    col1 = 1;
+                    break;
+                case 3:
+                    col2 = 1;
+                    break;
+                case 4:
+                    col3 = 1;
+                    break;
+                case 5:
+                    col4 = 1;
+                    break;
+                default:
+                    break;
+                }
+            }
+
+        } while (sel != 0);
+
+        int opp = 0;
+        int col = 0;
+        char valStr[150];
+        printf("1. igual (=) \n");
+        printf("2. no igual (!=) \n");
+        printf("3. menor que (<)\n");
+        printf("4. mayor que (>)\n");
+        printf("0. NINGUNA\n");
+        printf("Selecciona operacion para WHERE: ");
+        scanf("%d", &opp);
+
+        if (opp != 0)
+        {
+            printColumnasTabla2();
+            printf("Selecciona la columna: ");
+            scanf("%d", &col);
+            printf("Escibra el valor: ");
+            scanf("%s", &valStr);
+        }
+        snprintf(string, sizeof string, "3;2;%d%d%d%d%d;%d;%d;%s;",
+                 col0, col1, col2, col3, col4, opp, col, valStr);
+
+        printf("%s\n", string);
+    }
+
+    *m = strlen(string);
+    return string;
+}
+
+const char *case4(unsigned long *n)
+{
+    char string[300];
+
+    int col1 = 0;
+    int col2 = 0;
+    int sel = 0;
+
+    printf("TABLA 1\n");
+    int col0_a = 0;
+    int col1_a = 0;
+    int col2_a = 0;
+    int col3_a = 0;
+    int col4_a = 0;
+    int col5_a = 0;
+    int col6_a = 0;
+    int col7_a = 0;
+    int col8_a = 0;
+    printColumnasTabla1();
+    printf("0. TERMINAR SELECCION\n");
+    do
+        {
+            printf("Teclee la columna deseada: ");
+            scanf("%d", &sel);
+            if (sel > 0)
+            {
+                switch (sel)
+                {
+                case 1:
+                    col0_a = 1;
+                    break;
+                case 2:
+                    col1_a = 1;
+                    break;
+                case 3:
+                    col2_a = 1;
+                    break;
+                case 4:
+                    col3_a = 1;
+                    break;
+                case 5:
+                    col4_a = 1;
+                    break;
+                case 6:
+                    col5_a = 1;
+                    break;
+                case 7:
+                    col6_a = 1;
+                    break;
+                case 8:
+                    col7_a = 1;
+                    break;
+                case 9:
+                    col8_a = 1;
+                    break;
+                default:
+                    break;
+                }
+            }
+
+        } while (sel != 0);
+    printf("Selecciona la columna para union: ");
+    scanf("%d", &col1);
+
+    printf("TABLA 2\n");
+    int col0_b = 0;
+    int col1_b = 0;
+    int col2_b = 0;
+    int col3_b = 0;
+    int col4_b = 0;
+    printColumnasTabla2();
+    printf("0. TERMINAR SELECCION\n");
+    do
+        {
+            printf("Teclee la columna deseada: ");
+            scanf("%d", &sel);
+            if (sel > 0)
+            {
+                switch (sel)
+                {
+                case 1:
+                    col0_b = 1;
+                    break;
+                case 2:
+                    col1_b = 1;
+                    break;
+                case 3:
+                    col2_b = 1;
+                    break;
+                case 4:
+                    col3_b = 1;
+                    break;
+                case 5:
+                    col4_b = 1;
+                    break;
+                default:
+                    break;
+                }
+            }
+
+        } while (sel != 0);
+    printf("Selecciona la columna para union: ");
+    scanf("%d", &col2);
+
+    snprintf(string, sizeof string, "4;%d%d%d%d%d%d%d%d%d;%d%d%d%d%d;%d;%d;",
+                 col0_a, col1_a, col2_a, col3_a, col4_a, col5_a, col6_a, col7_a, col8_a, col0_b, col1_b, col2_b, col3_b, col4_b, col1, col2);
+
+    printf("%s\n", string);
+
+    *n = strlen(string);
+    return string;
+
 }
 
 int main(int argc, char const *argv[])
@@ -118,56 +408,92 @@ int main(int argc, char const *argv[])
     {
         // puts("Connected.");
         printf("\nBase de Datos de Empleados y Departamentos\n");
-	    printf("Opciones:\n");
-	    printf("1. Ver tabla 1 - Empleados.\n");
-	    printf("2. Ver tabla 2 - Departamentos.\n");
-	    printf("3. Hacer query SELECT.\n");
-	    printf("4. Hacer query JOIN.\n");
-	    printf("5. Hacer query INSERT.\n");
-	    printf("0. Salir.\n");
-	    printf("Ingrese la opción deseada [0-5]: ");
+        printf("Opciones:\n");
+        printf("1. Ver tabla 1 - Empleados.\n");
+        printf("2. Ver tabla 2 - Departamentos.\n");
+        printf("3. Hacer query SELECT.\n");
+        printf("4. Hacer query JOIN.\n");
+        printf("5. Hacer query INSERT.\n");
+        printf("0. Salir.\n");
+        printf("Ingrese la opción deseada [0-5]: ");
         scanf("%d", &opcion);
 
-	    do {
-            switch (opcion) {
-                case 1:
-                    send(s, "1;", strlen("1;"), 0);
-                    recv(s, buffer , 1024 , 0);
-                    printf("Tabla 1\n");
-                    printf("%s\n", buffer);
-                    memset(buffer,0,sizeof(buffer));
-                    break;
-                case 2:
-                    send(s, "2;", strlen("2;"), 0);
-                    recv(s, buffer , 1024 , 0);
-                    printf("Tabla 2\n");
-                    printf("%s\n", buffer);
-                    memset(buffer,0,sizeof(buffer));
-                    break;
-                case 3:
-                    printf("Query SELECT\n");
-                    break;
-                case 4:
-                    printf("Query JOIN\n");
-                    break;
-                case 5:
-                    // memset(buffer,0,sizeof(buffer));
-                    printf("Insert.\n");
-                    printf("1. INSERT a Tabla 1 - Empleados\n");
-                    printf("2. INSERT a Tabla 2 - Departamentos\n");
-                    printf("0. Regresar al menú\n");
-                    printf("Teclee la opción deseada (0-2): ");
+        do
+        {
+            switch (opcion)
+            {
+            case 1:
+                send(s, "1;", strlen("1;"), 0);
+                recv(s, buffer, 1024, 0);
+                printf("Tabla 1\n");
+                printf("%s\n", buffer);
+                memset(buffer, 0, sizeof(buffer));
+                break;
+            case 2:
+                send(s, "2;", strlen("2;"), 0);
+                recv(s, buffer, 1024, 0);
+                printf("Tabla 2\n");
+                printf("%s\n", buffer);
+                memset(buffer, 0, sizeof(buffer));
+                break;
+            case 3:
+                printf("Query SELECT\n");
+                printf("1. SELECT de Tabla 1 - Empleados\n");
+                printf("2. SELECT de Tabla 2 - Departamentos\n");
+                printf("0. Regresar al menú\n");
+                printf("Teclee la opción deseada (0-2): ");
 
-                    int i = 0;
-                    unsigned long l = 0;
-                    scanf("%d", &i);
+                int j = 0;
+                unsigned long m = 0;
+                scanf("%d", &j);
 
-                    const char* str = case5(i, &l);
-                    send(s, str, l, 0);
-
+                if (j == 0)
+                {
                     break;
-                default:
-                    printf("Opción inválida, intente de nuevo.\n");
+                }
+
+                const char *str3 = case3(j, &m);
+                send(s, str3, m, 0);
+                recv(s, buffer, 1024, 0);
+                // Aquí se imprime lo que venga de string3a o string3b
+                printf("%s\n", buffer);
+                memset(buffer, 0, sizeof(buffer));
+
+                break;
+            case 4:
+                printf("Query JOIN\n");
+
+                unsigned long n = 0;
+
+                const char *str4 = case4(&n);
+                send(s, str4, n, 0);
+                recv(s, buffer, 1024, 0);
+                // Aquí se imprime lo que venga de string4
+                printf("%s\n", buffer);
+                memset(buffer, 0, sizeof(buffer));
+
+                break;
+            case 5:
+                printf("Query INSERT\n");
+                printf("1. INSERT a Tabla 1 - Empleados\n");
+                printf("2. INSERT a Tabla 2 - Departamentos\n");
+                printf("0. Regresar al menú\n");
+                printf("Teclee la opción deseada (0-2): ");
+
+                int i = 0;
+                unsigned long l = 0;
+                scanf("%d", &i);
+
+                if (i == 0)
+                {
+                    break;
+                }
+
+                const char *str = case5(i, &l);
+                send(s, str, l, 0);
+                break;
+            default:
+                printf("Opción inválida, intente de nuevo.\n");
             }
             printf("\nBase de Datos de Empleados y Departamentos\n");
             printf("Opciones:\n");
@@ -179,15 +505,17 @@ int main(int argc, char const *argv[])
             printf("0. Salir.\n");
             printf("Ingrese la opción deseada [0-5]: ");
             scanf("%d", &opcion);
-	    } while (opcion != 0);
-    } else {
+        } while (opcion != 0);
+    }
+    else
+    {
         puts("Credenciales inválidas.");
         return 1;
     }
 
     send(s, "0;", strlen("0;"), 0);
     printf("Sesión cerrada.\n");
-        
+
     close(s);
     return 0;
 }

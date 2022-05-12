@@ -2,3 +2,4 @@
 daemonServerData/.DS_Store
 client
 daemon-server
+.vscode/

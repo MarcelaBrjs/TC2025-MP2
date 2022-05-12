@@ -256,396 +256,499 @@ void getTable2(struct _departamento *departamentos, int contDept, char string[20
     }
 };
 
-void selectTabla1(struct _empleado *empleados, int contEmp, int columnas[9], int opp, int col, int valNum, char valStr[150])
+void selectTabla1(struct _empleado *empleados, int contEmp, int columnas[9], int opp, int col, int valNum, char valStr[150], char string[20000])
 {
-	for (int i = 0; i < contEmp; i++)
-	{
-		switch (col)
-		{
-		case 1: // id
-			if (opp == 1)
-			{
-				if (empleados[i].id != valNum)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (empleados[i].id == valNum)
-					continue;
-			}
-			else if (opp == 3)
-			{
-				if (empleados[i].id > valNum)
-					continue;
-			}
-			else if (opp == 4)
-			{
-				if (empleados[i].id < valNum)
-					continue;
-			}
-			break;
-		case 2: // nombre
-			if (opp == 1)
-			{
-				if (strcasecmp(empleados[i].nombre, valStr) != 0)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (strcasecmp(empleados[i].nombre, valStr) == 0)
-					continue;
-			}
-			break;
-		case 3: // apellidos
-			if (opp == 1)
-			{
-				if (strcasecmp(empleados[i].apellidos, valStr) != 0)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (strcasecmp(empleados[i].apellidos, valStr) == 0)
-					continue;
-			}
-			break;
-		case 4: // idDept
-			if (opp == 1)
-			{
-				if (empleados[i].idDept != valNum)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (empleados[i].idDept == valNum)
-					continue;
-			}
-			else if (opp == 3)
-			{
-				if (empleados[i].idDept > valNum)
-					continue;
-			}
-			else if (opp == 4)
-			{
-				if (empleados[i].idDept < valNum)
-					continue;
-			}
-			break;
-		case 5: // fechaNacimiento
-			if (opp == 1)
-			{
-				if (strcasecmp(empleados[i].fechaNacim, valStr) != 0)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (strcasecmp(empleados[i].fechaNacim, valStr) == 0)
-					continue;
-			}
-			break;
-		case 6: // fechaContra
-			if (opp == 1)
-			{
-				if (strcasecmp(empleados[i].fechaContrat, valStr) != 0)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (strcasecmp(empleados[i].fechaContrat, valStr) == 0)
-					continue;
-			}
-			break;
-		case 7: // ciudad
-			if (opp == 1)
-			{
-				if (strcasecmp(empleados[i].ciudad, valStr) != 0)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (strcasecmp(empleados[i].ciudad, valStr) == 0)
-					continue;
-			}
-			break;
-		case 8: // proyecto actuales
-			if (opp == 1)
-			{
-				if (empleados[i].proyActuales != valNum)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (empleados[i].proyActuales == valNum)
-					continue;
-			}
-			else if (opp == 3)
-			{
-				if (empleados[i].proyActuales > valNum)
-					continue;
-			}
-			else if (opp == 4)
-			{
-				if (empleados[i].proyActuales < valNum)
-					continue;
-			}
-			break;
-		case 9: // salario
-			if (opp == 1)
-			{
-				if (empleados[i].salario != valNum)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (empleados[i].salario == valNum)
-					continue;
-			}
-			else if (opp == 3)
-			{
-				if (empleados[i].salario > valNum)
-					continue;
-			}
-			else if (opp == 4)
-			{
-				if (empleados[i].salario < valNum)
-					continue;
-			}
-			break;
+    for (int i = 0; i < contEmp; i++)
+    {
+        char temp[500];
 
-		default:
-			break;
-		}
-		if (columnas[0] == 1)
-		{
-			printf("%d;", empleados[i].id);
-		}
-		if (columnas[1] == 1)
-		{
-			printf("%s;", empleados[i].nombre);
-		}
-		if (columnas[2] == 1)
-		{
-			printf("%s;", empleados[i].apellidos);
-		}
-		if (columnas[3] == 1)
-		{
-			printf("%d;", empleados[i].idDept);
-		}
-		if (columnas[4] == 1)
-		{
-			printf("%s;", empleados[i].fechaNacim);
-		}
-		if (columnas[5] == 1)
-		{
-			printf("%s;", empleados[i].fechaContrat);
-		}
-		if (columnas[6] == 1)
-		{
-			printf("%s;", empleados[i].ciudad);
-		}
-		if (columnas[7] == 1)
-		{
-			printf("%d;", empleados[i].proyActuales);
-		}
-		if (columnas[8] == 1)
-		{
-			printf("%0.f;", empleados[i].salario);
-		}
-		printf("\n");
-	}
+        switch (col)
+        {
+        case 1: // id
+            if (opp == 1)
+            {
+                if (empleados[i].id != valNum)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (empleados[i].id == valNum)
+                    continue;
+            }
+            else if (opp == 3)
+            {
+                if (empleados[i].id > valNum)
+                    continue;
+            }
+            else if (opp == 4)
+            {
+                if (empleados[i].id < valNum)
+                    continue;
+            }
+            break;
+        case 2: // nombre
+            if (opp == 1)
+            {
+                if (strcasecmp(empleados[i].nombre, valStr) != 0)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (strcasecmp(empleados[i].nombre, valStr) == 0)
+                    continue;
+            }
+            break;
+        case 3: // apellidos
+            if (opp == 1)
+            {
+                if (strcasecmp(empleados[i].apellidos, valStr) != 0)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (strcasecmp(empleados[i].apellidos, valStr) == 0)
+                    continue;
+            }
+            break;
+        case 4: // idDept
+            if (opp == 1)
+            {
+                if (empleados[i].idDept != valNum)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (empleados[i].idDept == valNum)
+                    continue;
+            }
+            else if (opp == 3)
+            {
+                if (empleados[i].idDept > valNum)
+                    continue;
+            }
+            else if (opp == 4)
+            {
+                if (empleados[i].idDept < valNum)
+                    continue;
+            }
+            break;
+        case 5: // fechaNacimiento
+            if (opp == 1)
+            {
+                if (strcasecmp(empleados[i].fechaNacim, valStr) != 0)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (strcasecmp(empleados[i].fechaNacim, valStr) == 0)
+                    continue;
+            }
+            break;
+        case 6: // fechaContra
+            if (opp == 1)
+            {
+                if (strcasecmp(empleados[i].fechaContrat, valStr) != 0)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (strcasecmp(empleados[i].fechaContrat, valStr) == 0)
+                    continue;
+            }
+            break;
+        case 7: // ciudad
+            if (opp == 1)
+            {
+                if (strcasecmp(empleados[i].ciudad, valStr) != 0)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (strcasecmp(empleados[i].ciudad, valStr) == 0)
+                    continue;
+            }
+            break;
+        case 8: // proyecto actuales
+            if (opp == 1)
+            {
+                if (empleados[i].proyActuales != valNum)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (empleados[i].proyActuales == valNum)
+                    continue;
+            }
+            else if (opp == 3)
+            {
+                if (empleados[i].proyActuales > valNum)
+                    continue;
+            }
+            else if (opp == 4)
+            {
+                if (empleados[i].proyActuales < valNum)
+                    continue;
+            }
+            break;
+        case 9: // salario
+            if (opp == 1)
+            {
+                if (empleados[i].salario != valNum)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (empleados[i].salario == valNum)
+                    continue;
+            }
+            else if (opp == 3)
+            {
+                if (empleados[i].salario > valNum)
+                    continue;
+            }
+            else if (opp == 4)
+            {
+                if (empleados[i].salario < valNum)
+                    continue;
+            }
+            break;
+
+        default:
+            break;
+        }
+        if (columnas[0] == 1)
+        {
+            snprintf(temp, sizeof temp, "%d;", empleados[i].id);
+            strcat(string, temp);
+        }
+        if (columnas[1] == 1)
+        {
+            snprintf(temp, sizeof temp, "%s;", empleados[i].nombre);
+            strcat(string, temp);
+        }
+        if (columnas[2] == 1)
+        {
+            snprintf(temp, sizeof temp, "%s;", empleados[i].apellidos);
+            strcat(string, temp);
+        }
+        if (columnas[3] == 1)
+        {
+            snprintf(temp, sizeof temp, "%d;", empleados[i].idDept);
+            strcat(string, temp);
+        }
+        if (columnas[4] == 1)
+        {
+            snprintf(temp, sizeof temp, "%s;", empleados[i].fechaNacim);
+            strcat(string, temp);
+        }
+        if (columnas[5] == 1)
+        {
+            snprintf(temp, sizeof temp, "%s;", empleados[i].fechaContrat);
+            strcat(string, temp);
+        }
+        if (columnas[6] == 1)
+        {
+            snprintf(temp, sizeof temp, "%s;", empleados[i].ciudad);
+            strcat(string, temp);
+        }
+        if (columnas[7] == 1)
+        {
+            snprintf(temp, sizeof temp, "%d;", empleados[i].proyActuales);
+            strcat(string, temp);
+        }
+        if (columnas[8] == 1)
+        {
+            snprintf(temp, sizeof temp, "%0.f;", empleados[i].salario);
+            strcat(string, temp);
+        }
+        strcat(string, "\n");
+    }
 };
 
-void selectTabla2(struct _departamento *departamentos, int contDept, int columnas[9], int opp, int col, int valNum, char valStr[150])
+void selectTabla2(struct _departamento *departamentos, int contDept, int columnas[9], int opp, int col, int valNum, char valStr[150], char string[20000])
 {
-	for (int i = 0; i < contDept; i++)
-	{
-		switch (col)
-		{
-		case 1: // idDept
-			if (opp == 1)
-			{
-				if (departamentos[i].idDept != valNum)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (departamentos[i].idDept == valNum)
-					continue;
-			}
-			else if (opp == 3)
-			{
-				if (departamentos[i].idDept > valNum)
-					continue;
-			}
-			else if (opp == 4)
-			{
-				if (departamentos[i].idDept < valNum)
-					continue;
-			}
-			break;
-		case 2: // nombre
-			if (opp == 1)
-			{
-				if (strcasecmp(departamentos[i].nombre, valStr) != 0)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (strcasecmp(departamentos[i].nombre, valStr) == 0)
-					continue;
-			}
-			break;
-		case 3: // descripcion
-			if (opp == 1)
-			{
-				if (strcasecmp(departamentos[i].descripcion, valStr) != 0)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (strcasecmp(departamentos[i].descripcion, valStr) == 0)
-					continue;
-			}
-			break;
-		case 4: // piso
-			if (opp == 1)
-			{
-				if (departamentos[i].piso != valNum)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (departamentos[i].piso == valNum)
-					continue;
-			}
-			else if (opp == 3)
-			{
-				if (departamentos[i].piso > valNum)
-					continue;
-			}
-			else if (opp == 4)
-			{
-				if (departamentos[i].piso < valNum)
-					continue;
-			}
-			break;
-		case 5: // presupuesto
-			if (opp == 1)
-			{
-				if (departamentos[i].presupuesto != valNum)
-					continue;
-			}
-			else if (opp == 2)
-			{
-				if (departamentos[i].presupuesto == valNum)
-					continue;
-			}
-			else if (opp == 3)
-			{
-				if (departamentos[i].presupuesto > valNum)
-					continue;
-			}
-			else if (opp == 4)
-			{
-				if (departamentos[i].presupuesto < valNum)
-					continue;
-			}
-			break;
-		default:
-			break;
-		}
-		if (columnas[0] == 1)
-		{
-			printf("%d;", departamentos[i].idDept);
-		}
-		if (columnas[1] == 1)
-		{
-			printf("%s;", departamentos[i].nombre);
-		}
-		if (columnas[2] == 1)
-		{
-			printf("%s;", departamentos[i].descripcion);
-		}
-		if (columnas[3] == 1)
-		{
-			printf("%d;", departamentos[i].piso);
-		}
-		if (columnas[4] == 1)
-		{
-			printf("%0.f;", departamentos[i].presupuesto);
-		}
-		printf("\n");
-	}
+    for (int i = 0; i < contDept; i++)
+    {
+        switch (col)
+        {
+        case 1: // idDept
+            if (opp == 1)
+            {
+                if (departamentos[i].idDept != valNum)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (departamentos[i].idDept == valNum)
+                    continue;
+            }
+            else if (opp == 3)
+            {
+                if (departamentos[i].idDept > valNum)
+                    continue;
+            }
+            else if (opp == 4)
+            {
+                if (departamentos[i].idDept < valNum)
+                    continue;
+            }
+            break;
+        case 2: // nombre
+            if (opp == 1)
+            {
+                if (strcasecmp(departamentos[i].nombre, valStr) != 0)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (strcasecmp(departamentos[i].nombre, valStr) == 0)
+                    continue;
+            }
+            break;
+        case 3: // descripcion
+            if (opp == 1)
+            {
+                if (strcasecmp(departamentos[i].descripcion, valStr) != 0)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (strcasecmp(departamentos[i].descripcion, valStr) == 0)
+                    continue;
+            }
+            break;
+        case 4: // piso
+            if (opp == 1)
+            {
+                if (departamentos[i].piso != valNum)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (departamentos[i].piso == valNum)
+                    continue;
+            }
+            else if (opp == 3)
+            {
+                if (departamentos[i].piso > valNum)
+                    continue;
+            }
+            else if (opp == 4)
+            {
+                if (departamentos[i].piso < valNum)
+                    continue;
+            }
+            break;
+        case 5: // presupuesto
+            if (opp == 1)
+            {
+                if (departamentos[i].presupuesto != valNum)
+                    continue;
+            }
+            else if (opp == 2)
+            {
+                if (departamentos[i].presupuesto == valNum)
+                    continue;
+            }
+            else if (opp == 3)
+            {
+                if (departamentos[i].presupuesto > valNum)
+                    continue;
+            }
+            else if (opp == 4)
+            {
+                if (departamentos[i].presupuesto < valNum)
+                    continue;
+            }
+            break;
+        default:
+            break;
+        }
+        if (columnas[0] == 1)
+        {
+            printf("%d;", departamentos[i].idDept);
+        }
+        if (columnas[1] == 1)
+        {
+            printf("%s;", departamentos[i].nombre);
+        }
+        if (columnas[2] == 1)
+        {
+            printf("%s;", departamentos[i].descripcion);
+        }
+        if (columnas[3] == 1)
+        {
+            printf("%d;", departamentos[i].piso);
+        }
+        if (columnas[4] == 1)
+        {
+            printf("%0.f;", departamentos[i].presupuesto);
+        }
+        printf("\n");
+    }
 };
+
+int joinCondition(struct _empleado emp, int col1, struct _departamento dep, int col2)
+{
+    switch (col1)
+    {
+    case 1:            // id
+        if (col2 == 1) // idDept
+        {
+            return (emp.id == dep.idDept);
+        }
+        else if (col2 == 4) // piso
+        {
+            return (emp.id == dep.piso);
+        }
+        break;
+    case 2:            // nombre
+        if (col2 == 2) // nombre
+        {
+            if (strcasecmp(emp.nombre, dep.nombre) == 0)
+                return 1;
+        }
+        else if (col2 == 3) // descripcion
+        {
+            if (strcasecmp(emp.nombre, dep.descripcion) == 0)
+                return 1;
+        }
+        break;
+    case 3:            // apellidos
+        if (col2 == 2) // nombre
+        {
+            if (strcasecmp(emp.apellidos, dep.nombre) == 0)
+                return 1;
+        }
+        else if (col2 == 3) // descripcion
+        {
+            if (strcasecmp(emp.apellidos, dep.descripcion) == 0)
+                return 1;
+        }
+        break;
+    case 4:            // idDept
+        if (col2 == 1) // idDept
+        {
+            return (emp.idDept == dep.idDept);
+        }
+        else if (col2 == 4) // piso
+        {
+            return (emp.idDept == dep.piso);
+        }
+        break;
+    case 5:            // fechaNacim
+        if (col2 == 2) // nombre
+        {
+            if (strcasecmp(emp.fechaNacim, dep.nombre) == 0)
+                return 1;
+        }
+        else if (col2 == 3) // descripcion
+        {
+            if (strcasecmp(emp.fechaContrat, dep.descripcion) == 0)
+                return 1;
+        }
+        break;
+    case 6:            // fechaContrat
+        if (col2 == 2) // nombre
+        {
+            if (strcasecmp(emp.fechaContrat, dep.nombre) == 0)
+                return 1;
+        }
+        else if (col2 == 3) // descripcion
+        {
+            if (strcasecmp(emp.fechaContrat, dep.descripcion) == 0)
+                return 1;
+        }
+        break;
+    case 7:            // Ciudad
+        if (col2 == 2) // nombre
+        {
+            if (strcasecmp(emp.ciudad, dep.nombre) == 0)
+                return 1;
+        }
+        else if (col2 == 3) // descripcion
+        {
+            if (strcasecmp(emp.ciudad, dep.descripcion) == 0)
+                return 1;
+        }
+        break;
+    default:
+        return 0;
+        break;
+    }
+
+    return 0;
+}
 
 void joinTable(struct _empleado *empleados, int contEmp, int columnas1[9], struct _departamento *departamentos, int contDept, int columnas2[5], int col1, int col2)
 {
-	for (int i = 0; i < contEmp; i++)
-	{
-		if (columnas1[0] == 1)
-		{
-			printf("%d;", empleados[i].id);
-		}
-		if (columnas1[1] == 1)
-		{
-			printf("%s;", empleados[i].nombre);
-		}
-		if (columnas1[2] == 1)
-		{
-			printf("%s;", empleados[i].apellidos);
-		}
-		if (columnas1[3] == 1)
-		{
-			printf("%d;", empleados[i].idDept);
-		}
-		if (columnas1[4] == 1)
-		{
-			printf("%s;", empleados[i].fechaNacim);
-		}
-		if (columnas1[5] == 1)
-		{
-			printf("%s;", empleados[i].fechaContrat);
-		}
-		if (columnas1[6] == 1)
-		{
-			printf("%s;", empleados[i].ciudad);
-		}
-		if (columnas1[7] == 1)
-		{
-			printf("%d;", empleados[i].proyActuales);
-		}
-		if (columnas1[8] == 1)
-		{
-			printf("%0.f;", empleados[i].salario);
-		}
-		for (int j = 0; j < contDept; j++)
-		{
-			if (empleados[i].idDept == departamentos[j].idDept)
-			{
-				if (columnas2[0] == 1)
-				{
-					printf("%d;", departamentos[j].idDept);
-				}
-				if (columnas2[1] == 1)
-				{
-					printf("%s;", departamentos[j].nombre);
-				}
-				if (columnas2[2] == 1)
-				{
-					printf("%s;", departamentos[j].descripcion);
-				}
-				if (columnas2[3] == 1)
-				{
-					printf("%d;", departamentos[j].piso);
-				}
-				if (columnas2[4] == 1)
-				{
-					printf("%0.f;", departamentos[j].presupuesto);
-				}
-				break;
-			}
-		}
-		printf("\n");
-	}
+    for (int i = 0; i < contEmp; i++)
+    {
+        for (int j = 0; j < contDept; j++)
+        {
+            if (joinCondition(empleados[i], col1, departamentos[j], col2) == 1)
+            {
+                if (columnas1[0] == 1)
+                {
+                    printf("%d;", empleados[i].id);
+                }
+                if (columnas1[1] == 1)
+                {
+                    printf("%s;", empleados[i].nombre);
+                }
+                if (columnas1[2] == 1)
+                {
+                    printf("%s;", empleados[i].apellidos);
+                }
+                if (columnas1[3] == 1)
+                {
+                    printf("%d;", empleados[i].idDept);
+                }
+                if (columnas1[4] == 1)
+                {
+                    printf("%s;", empleados[i].fechaNacim);
+                }
+                if (columnas1[5] == 1)
+                {
+                    printf("%s;", empleados[i].fechaContrat);
+                }
+                if (columnas1[6] == 1)
+                {
+                    printf("%s;", empleados[i].ciudad);
+                }
+                if (columnas1[7] == 1)
+                {
+                    printf("%d;", empleados[i].proyActuales);
+                }
+                if (columnas1[8] == 1)
+                {
+                    printf("%0.f;", empleados[i].salario);
+                }
+                if (columnas2[0] == 1)
+                {
+                    printf("%d;", departamentos[j].idDept);
+                }
+                if (columnas2[1] == 1)
+                {
+                    printf("%s;", departamentos[j].nombre);
+                }
+                if (columnas2[2] == 1)
+                {
+                    printf("%s;", departamentos[j].descripcion);
+                }
+                if (columnas2[3] == 1)
+                {
+                    printf("%d;", departamentos[j].piso);
+                }
+                if (columnas2[4] == 1)
+                {
+                    printf("%0.f;", departamentos[j].presupuesto);
+                }
+                break;
+            }
+        }
+        printf("\n");
+    }
 }
 
 static void daemonize()
@@ -802,18 +905,31 @@ int main()
                 char *columnas = strtok(NULL, sp);
                 int opp = atoi(strtok(NULL, sp));
                 int col = atoi(strtok(NULL, sp));
-                char *val = strtok(NULL, sp);
 
+                char *valStr;
+                int *valInt;
                 if (strcmp(content, "1") == 0)
                 {
+                    if (col == 1 || col == 4 || col == 8 || col == 9)
+                    {
+                        valInt = atoi(strtok(NULL, sp));
+                    }
+                    else
+                    {
+                        valStr = strtok(NULL, sp);
+                    }
                     int columnasInt[9];
 
-                    for(int i = 0; i < 9; i++) {
+                    for (int i = 0; i < 9; i++)
+                    {
                         int op;
                         op = (int)(columnas[i]);
-                        if (op == 49) {
+                        if (op == 49)
+                        {
                             columnasInt[i] = 1;
-                        } else if (op == 48) {
+                        }
+                        else if (op == 48)
+                        {
                             columnasInt[i] = 0;
                         }
                     }
@@ -821,22 +937,34 @@ int main()
                     char string3a[20000];
                     // En columnasInt ya está un array con los valores de columnas.
                     // Necesito que selectTabla1 termine en que string3a tenga guardado un string gigante con todo lo que se va a retornar a client.c. Referencia en case 1 y 2, hechos por Lorena.
-                    // selectTabla1(empleados, contEmp, columnasInt, opp, col, valNum, val);
+                    selectTabla1(empleados, contEmp, columnasInt, opp, col, valInt, valStr, string3a);
 
                     // Una vez que ya esté en string3a, descomentar los siguientes dos comandos.
-                    // send(new_socket, string3a, strlen(string3a), 0);
-                    // memset(string3a, 0, sizeof(string3a));
+                    send(new_socket, string3a, strlen(string3a), 0);
+                    memset(string3a, 0, sizeof(string3a));
                 }
                 else if (strcmp(content, "2") == 0)
                 {
+                    if (col == 1 || col == 4 || col == 5)
+                    {
+                        valInt = atoi(strtok(NULL, sp));
+                    }
+                    else
+                    {
+                        valStr = strtok(NULL, sp);
+                    }
                     int columnasInt[5];
 
-                    for(int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 5; i++)
+                    {
                         int op;
                         op = (int)(columnas[i]);
-                        if (op == 49) {
+                        if (op == 49)
+                        {
                             columnasInt[i] = 1;
-                        } else if (op == 48) {
+                        }
+                        else if (op == 48)
+                        {
                             columnasInt[i] = 0;
                         }
                     }
@@ -844,7 +972,7 @@ int main()
                     char string3b[20000];
                     // En columnasInt ya está un array con los valores de columnas.
                     // Necesito que selectTabla1 termine en que string3a tenga guardado un string gigante con todo lo que se va a retornar a client.c
-                    // selectTabla2(empleados, contEmp, columnasInt, opp, col, valNum, val);
+                    // selectTabla2(empleados, contEmp, columnasInt, opp, col, valInt, valStr);
 
                     // Una vez que ya esté en string3b, descomentar los siguientes dos comandos.
                     // send(new_socket, string3b, strlen(string3b), 0);
@@ -862,22 +990,30 @@ int main()
                 int columnasT1Int[9];
                 int columnasT2Int[5];
 
-                for(int i = 0; i < 9; i++) {
+                for (int i = 0; i < 9; i++)
+                {
                     int op;
                     op = (int)(columnasT1[i]);
-                    if (op == 49) {
+                    if (op == 49)
+                    {
                         columnasT1Int[i] = 1;
-                    } else if (op == 48) {
+                    }
+                    else if (op == 48)
+                    {
                         columnasT1Int[i] = 0;
                     }
                 }
 
-                for(int i = 0; i < 5; i++) {
+                for (int i = 0; i < 5; i++)
+                {
                     int op;
                     op = (int)(columnasT2[i]);
-                    if (op == 49) {
+                    if (op == 49)
+                    {
                         columnasT1Int[i] = 1;
-                    } else if (op == 48) {
+                    }
+                    else if (op == 48)
+                    {
                         columnasT2Int[i] = 0;
                     }
                 }

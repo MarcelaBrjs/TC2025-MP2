@@ -343,7 +343,6 @@ int main()
     // STORE DATA FROM TABLES
     struct _empleado empleados[50] = {NULL, "", "", NULL, "", "", " ", NULL, 0};
     struct _departamento departamentos[20] = {NULL, "", "", NULL, 0};
-    // Estos dos marcan error: ¡REVISAR!
     int contEmp = readTable1(empleados) - 1;
     int contDept = readTable2(departamentos) - 1;
 
@@ -351,13 +350,19 @@ int main()
     while ((new_socket = accept(s, (struct sockaddr *)&address, (socklen_t *)&addrlen)))
     {
         // GET OPTION
-        while((data = recv(new_socket, buffer , 1024 , 0))) {
+        while((data = recv(new_socket, buffer, 1024 , 0))) {
+            fprintf(ptrLogs, "%lu\n", strlen(buffer));
+            fflush(ptrLogs);
+            fprintf(ptrLogs, "%s\n", buffer);
+            fflush(ptrLogs);
+
             char* sp = ";";
             char* option = strtok(buffer, sp);
             
             if(strcmp(option, "auth") == 0) {
                 char* user = strtok(NULL, sp);
                 char* password = strtok(NULL, sp);
+                memset(buffer,0,sizeof(buffer));
 
                 for (int i = 0; i < 10; i++) {
                     int validUsername = strcmp(users[i].username, user);
@@ -400,8 +405,73 @@ int main()
             }
             else if (atoi(option) == 5)
             {
-                // Insert.
-                // Aquí va el código nuevo de Lorena.
+                // Insert
+                char* content = strtok(NULL, sp);
+                fprintf(ptrLogs, "Content %s\n", content);
+                fflush(ptrLogs);
+
+                if (strcmp(content, "1") == 0)
+                {
+                    FILE *fp = fopen("table_1.txt", "a");
+
+                    if (fp != NULL)
+                    {   
+                        int id_t = atoi(strtok(NULL, sp));
+                        char* nombre_t = strtok(NULL, sp);
+                        char* apellidos_t = strtok(NULL, sp);
+                        int idDept_t = atoi(strtok(NULL, sp));
+                        char* fechaNacim_t = strtok(NULL, sp);
+                        char* fechaContrat_t = strtok(NULL, sp);
+                        char* ciudad_t = strtok(NULL, sp);
+                        int proyActuales_t = atoi(strtok(NULL, sp));
+                        double salario_t = atof(strtok(NULL, sp));
+
+                        contEmp++;
+                        empleados[contEmp - 1].id = id_t;
+                        strcpy(empleados[contEmp - 1].nombre, nombre_t);
+                        strcpy(empleados[contEmp - 1].apellidos, apellidos_t);
+                        empleados[contEmp - 1].idDept = idDept_t;
+                        strcpy(empleados[contEmp - 1].fechaNacim, fechaNacim_t);
+                        strcpy(empleados[contEmp - 1].fechaContrat, fechaContrat_t);
+                        strcpy(empleados[contEmp - 1].ciudad, ciudad_t);
+                        empleados[contEmp - 1].proyActuales = proyActuales_t;
+                        empleados[contEmp - 1].salario = salario_t;
+                        
+                        fprintf(fp, "\n%d;%s;%s;%d;%s;%s;%s;%d;%.0f;", id_t, nombre_t, apellidos_t, idDept_t, fechaNacim_t, fechaContrat_t, ciudad_t, proyActuales_t, salario_t);
+                        fflush(fp);
+
+                        fclose(fp);
+                    }
+                    else
+                    {
+                        printf("Error in fopen for table_1.txt\n");
+                    }
+                }
+                else if (strcmp(content, "2") == 0)
+                {
+                    FILE *fp = fopen("table_2.txt", "a");
+
+                    if (fp != NULL)
+                    {   
+                        int idDept_t = atoi(strtok(NULL, sp));
+                        char* nombre_t = strtok(NULL, sp);
+                        char* descripcion_t = strtok(NULL, sp);
+                        int piso_t = atoi(strtok(NULL, sp));
+                        double presupuesto_t = atof(strtok(NULL, sp));
+
+                        contDept++;
+                        departamentos[contDept - 1].idDept = idDept_t;
+                        strcpy(departamentos[contDept - 1].nombre, nombre_t);
+                        strcpy(departamentos[contDept - 1].descripcion, descripcion_t);
+                        departamentos[contDept - 1].piso = piso_t;
+                        departamentos[contDept - 1].presupuesto = presupuesto_t;
+                        
+                        fprintf(fp, "\n%d;%s;%s;%d;%.0f;", idDept_t, nombre_t, descripcion_t, piso_t, presupuesto_t);
+                        fflush(fp);
+
+                        fclose(fp);
+                    }
+                }
             }
             else if (atoi(option) == 0)
             {

@@ -1,4 +1,34 @@
 Socket has been created.
 Bound.
 Waiting for connections...
+20
+auth;marcela;121212;
 Connected, user authenticated.
+2
+1;
+2
+2;
+63
+5;1;1;marcela;barajas;2;12/03/2001;12/05/2020;monterrey;2;1200;
+Content 1
+3
+1;1
+34
+5;2;4;finanzas;aaaaaa;3;120.00;001
+Content 2
+3
+2;2
+21
+auth;marcela;121212;a
+Connected, user authenticated.
+27
+5;2;1;finanzas;2;2;1200.00;
+Content 2
+26
+auth;marcela;121212;200.00
+Connected, user authenticated.
+28
+5;2;1;finanzas;aaaa;1;12.00;
+Content 2
+3
+2;2

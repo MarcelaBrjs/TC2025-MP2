@@ -6,6 +6,63 @@
 #include <stdlib.h>
 #define PORT 8080
 
+const char* case5(int insertOpcion, unsigned long *l) {
+    char string[300];
+
+    if (insertOpcion == 1)
+    {
+        int id, idDept, proyActuales;
+        double salario;
+        char temp, nombre[50], apellidos[100], fechaNacim[11], fechaContrat[11], ciudad[50];
+        printf("Id (entero): ");
+        scanf("%d", &id);
+        printf("Nombre (string): ");
+        scanf("%c", &temp);
+        scanf("%[^\n]", nombre);
+        printf("Apellidos (string): ");
+        scanf("%c", &temp);
+        scanf("%[^\n]", apellidos);
+        printf("Id de Departamento (entero): ");
+        scanf("%d", &idDept);
+        printf("Fecha de Nacimiento (Día/Mes/Año): ");
+        scanf("%c", &temp);
+        scanf("%s", fechaNacim);
+        printf("Fecha de Contratación (Día/Mes/Año): ");
+        scanf("%s", fechaContrat);
+        printf("Ciudad (string): ");
+        scanf("%c", &temp);
+        scanf("%[^\n]", ciudad);
+        printf("Proyectos Actuales (entero): ");
+        scanf("%d", &proyActuales);
+        printf("Salario (double): ");
+        scanf("%lf", &salario);
+        snprintf(string, sizeof string, "5;1;%d;%s;%s;%d;%s;%s;%s;%d;%.0f;",
+                id, nombre, apellidos, idDept, fechaNacim, fechaContrat, ciudad, proyActuales, salario);
+    }
+    else if (insertOpcion == 2)
+    {
+        int idDept, piso;
+        char temp, nombre[80], descripcion[150];
+        double presupuesto;
+        printf("Id (entero): ");
+        scanf("%d", &idDept);
+        printf("Nombre (string): ");
+        scanf("%c", &temp); // Limpiar buffer
+        scanf("%[^\n]", nombre);
+        printf("Descripción (string): ");
+        scanf("%c", &temp);
+        scanf("%[^\n]", descripcion);
+        printf("Piso (entero): ");
+        scanf("%d", &piso);
+        printf("Presupuesto (double): ");
+        scanf("%lf", &presupuesto);
+        snprintf(string, sizeof string, "5;2;%d;%s;%s;%d;%.2f;",
+                idDept, nombre, descripcion, piso, presupuesto);
+    }
+    *l = strlen(string);
+    return string;
+}
+
 int main(int argc, char const *argv[])
 {
     int s = 0;
@@ -94,7 +151,20 @@ int main(int argc, char const *argv[])
                     printf("Query JOIN\n");
                     break;
                 case 5:
-                    printf("\nQuery INSERT\n");
+                    // memset(buffer,0,sizeof(buffer));
+                    printf("Insert.\n");
+                    printf("1. INSERT a Tabla 1 - Empleados\n");
+                    printf("2. INSERT a Tabla 2 - Departamentos\n");
+                    printf("0. Regresar al menú\n");
+                    printf("Teclee la opción deseada (0-2): ");
+
+                    int i = 0;
+                    unsigned long l = 0;
+                    scanf("%d", &i);
+
+                    const char* str = case5(i, &l);
+                    send(s, str, l, 0);
+
                     break;
                 default:
                     printf("Opción inválida, intente de nuevo.\n");

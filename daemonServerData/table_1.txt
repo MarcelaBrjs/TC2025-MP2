@@ -1,4 +1,4 @@
-id;nombre;apellidos;fechaNacim;fechaContrat;ciudad;proyActuales;salario;
+id;nombre;apellidos;idDept;fechaNacim;fechaContrat;ciudad;proyActuales;salario;
 1;Juan;Villarreal Martínez;1;10/03/1980;20/01/2015;Monterrey;3;32200;
 2;Mariana;Gómez Juárez;3;27/10/1984;31/03/2016;Guadalajara;4;19100;
 3;Sergio;Valles Morín;2;22/10/1998;11/06/2019;Monterrey;2;15000;

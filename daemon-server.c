@@ -687,8 +687,10 @@ int joinCondition(struct _empleado emp, int col1, struct _departamento dep, int 
     return 0;
 }
 
-void joinTable(struct _empleado *empleados, int contEmp, int columnas1[9], struct _departamento *departamentos, int contDept, int columnas2[5], int col1, int col2)
+void joinTable(struct _empleado *empleados, int contEmp, int columnas1[9], struct _departamento *departamentos, int contDept, int columnas2[5], int col1, int col2, char string[20000])
 {
+    char temp[500];
+
     for (int i = 0; i < contEmp; i++)
     {
         for (int j = 0; j < contDept; j++)
@@ -697,64 +699,79 @@ void joinTable(struct _empleado *empleados, int contEmp, int columnas1[9], struc
             {
                 if (columnas1[0] == 1)
                 {
-                    printf("%d;", empleados[i].id);
+                    snprintf(temp, sizeof temp, "%d;", empleados[i].id);
+                    strcat(string, temp);
                 }
                 if (columnas1[1] == 1)
                 {
-                    printf("%s;", empleados[i].nombre);
+                    snprintf(temp, sizeof temp, "%s;", empleados[i].nombre);
+                    strcat(string, temp);
                 }
                 if (columnas1[2] == 1)
                 {
-                    printf("%s;", empleados[i].apellidos);
+                    snprintf(temp, sizeof temp, "%s;", empleados[i].apellidos);
+                    strcat(string, temp);
                 }
                 if (columnas1[3] == 1)
                 {
-                    printf("%d;", empleados[i].idDept);
+                    snprintf(temp, sizeof temp, "%d;", empleados[i].idDept);
+                    strcat(string, temp);
                 }
                 if (columnas1[4] == 1)
                 {
-                    printf("%s;", empleados[i].fechaNacim);
+                    snprintf(temp, sizeof temp, "%s;", empleados[i].fechaNacim);
+                    strcat(string, temp);
                 }
                 if (columnas1[5] == 1)
                 {
-                    printf("%s;", empleados[i].fechaContrat);
+                    snprintf(temp, sizeof temp, "%s;", empleados[i].fechaContrat);
+                    strcat(string, temp);
                 }
                 if (columnas1[6] == 1)
                 {
-                    printf("%s;", empleados[i].ciudad);
+                    snprintf(temp, sizeof temp, "%s;", empleados[i].ciudad);
+                    strcat(string, temp);
                 }
                 if (columnas1[7] == 1)
                 {
-                    printf("%d;", empleados[i].proyActuales);
+                    snprintf(temp, sizeof temp, "%d;", empleados[i].proyActuales);
+                    strcat(string, temp);
                 }
                 if (columnas1[8] == 1)
                 {
-                    printf("%0.f;", empleados[i].salario);
+                    snprintf(temp, sizeof temp, "%0.f;", empleados[i].salario);
+                    strcat(string, temp);
                 }
                 if (columnas2[0] == 1)
                 {
-                    printf("%d;", departamentos[j].idDept);
+                    snprintf(temp, sizeof temp, "%d;", departamentos[j].idDept);
+                    strcat(string, temp);
                 }
                 if (columnas2[1] == 1)
                 {
-                    printf("%s;", departamentos[j].nombre);
+                    snprintf(temp, sizeof temp, "%s;", departamentos[j].nombre);
+                    strcat(string, temp);
                 }
                 if (columnas2[2] == 1)
                 {
-                    printf("%s;", departamentos[j].descripcion);
+                    snprintf(temp, sizeof temp, "%s;", departamentos[j].descripcion);
+                    strcat(string, temp);
                 }
                 if (columnas2[3] == 1)
                 {
-                    printf("%d;", departamentos[j].piso);
+                    snprintf(temp, sizeof temp, "%d;", departamentos[j].piso);
+                    strcat(string, temp);
                 }
                 if (columnas2[4] == 1)
                 {
-                    printf("%0.f;", departamentos[j].presupuesto);
+                    snprintf(temp, sizeof temp, "%0.f;", departamentos[j].presupuesto);
+                    strcat(string, temp);
                 }
+                strcat(string, "\n");
                 break;
             }
         }
-        printf("\n");
+
     }
 }
 
@@ -1009,7 +1026,7 @@ int main()
                     op = (int)(columnasT2[i]);
                     if (op == 49)
                     {
-                        columnasT1Int[i] = 1;
+                        columnasT2Int[i] = 1;
                     }
                     else if (op == 48)
                     {
@@ -1018,13 +1035,9 @@ int main()
                 }
 
                 char string4[20000];
-                // En columnasT1Int y columnasT2Int ya está un array con los valores de columnas.
-                // Necesito que joinTable termine en que string4 tenga guardado un string gigante con todo lo que se va a retornar a client.c
-                // joinTable(empleados, contEmp, columnasT1Int, departamentos, contDept, columnasT2Int, col1, col2);
-
-                // Una vez que ya esté en string4, descomentar los siguientes dos comandos.
-                // send(new_socket, string4, strlen(string4), 0);
-                // memset(string4, 0, sizeof(string4));
+                joinTable(empleados, contEmp, columnasT1Int, departamentos, contDept, columnasT2Int, col1, col2, string4);
+                send(new_socket, string4, strlen(string4), 0);
+                memset(string4, 0, sizeof(string4));
             }
             else if (atoi(option) == 5)
             {

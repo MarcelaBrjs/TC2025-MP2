@@ -349,8 +349,6 @@ const char *case4(unsigned long *n)
     snprintf(string, sizeof string, "4;%d%d%d%d%d%d%d%d%d;%d%d%d%d%d;%d;%d;",
                  col0_a, col1_a, col2_a, col3_a, col4_a, col5_a, col6_a, col7_a, col8_a, col0_b, col1_b, col2_b, col3_b, col4_b, col1, col2);
 
-    // printf("%s\n", string);
-
     *n = strlen(string);
     return string;
 
@@ -458,7 +456,6 @@ int main(int argc, char const *argv[])
                 const char *str3 = case3(j, &m);
                 send(s, str3, m, 0);
                 recv(s, buffer, 1024, 0);
-                // Aquí se imprime lo que venga de string3a o string3b
                 printf("\nResultado del SELECT:\n");
                 printf("%s\n", buffer);
                 memset(buffer, 0, sizeof(buffer));
@@ -472,7 +469,7 @@ int main(int argc, char const *argv[])
                 const char *str4 = case4(&n);
                 send(s, str4, n, 0);
                 recv(s, buffer, 1024, 0);
-                // Aquí se imprime lo que venga de string4
+                printf("\nResultado del JOIN:\n");
                 printf("%s\n", buffer);
                 memset(buffer, 0, sizeof(buffer));
 

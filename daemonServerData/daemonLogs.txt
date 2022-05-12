@@ -1,0 +1,44 @@
+Socket has been created.
+Bound.
+Waiting for connections...
+24
+auth;marcela;VNyXyTwH7o;
+Connected, user authenticated.
+2
+1;
+2
+2;
+25
+3;1;111000000;0;0;Π Έχ;
+Content 1
+24
+auth;marcela;VNyXyTwH7o;
+Connected, user authenticated.
+20
+3;1;111000000;1;1;3;
+Content 1
+25
+3;1;111000000;2;2;sergio;
+Content 1
+24
+3;1;110000001;3;9;20000;
+Content 1
+17
+3;2;11100;1;1;2;9
+Content 2
+23
+4;111100000;11000;4;1;0
+23
+4;110000000;10010;1;4;0
+33
+5;2;4;Itnero;lo que sea;5;200.00;
+Content 2
+3
+0;2
+Closing user account.
+25
+auth;marcela;VNyXyTwH7o;5
+Connected, user authenticated.
+16
+3;2;11000;1;1;4;
+Content 2

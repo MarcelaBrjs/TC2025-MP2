@@ -469,6 +469,8 @@ void selectTabla2(struct _departamento *departamentos, int contDept, int columna
 {
     for (int i = 0; i < contDept; i++)
     {
+        char temp[500];
+
         switch (col)
         {
         case 1: // idDept
@@ -566,25 +568,30 @@ void selectTabla2(struct _departamento *departamentos, int contDept, int columna
         }
         if (columnas[0] == 1)
         {
-            printf("%d;", departamentos[i].idDept);
+            snprintf(temp, sizeof temp, "%d;", departamentos[i].idDept);
+            strcat(string, temp);
         }
         if (columnas[1] == 1)
         {
-            printf("%s;", departamentos[i].nombre);
+            snprintf(temp, sizeof temp, "%s;", departamentos[i].nombre);
+            strcat(string, temp);
         }
         if (columnas[2] == 1)
         {
-            printf("%s;", departamentos[i].descripcion);
+            snprintf(temp, sizeof temp, "%s;", departamentos[i].descripcion);
+            strcat(string, temp);
         }
         if (columnas[3] == 1)
         {
-            printf("%d;", departamentos[i].piso);
+            snprintf(temp, sizeof temp, "%d;", departamentos[i].piso);
+            strcat(string, temp);
         }
         if (columnas[4] == 1)
         {
-            printf("%0.f;", departamentos[i].presupuesto);
+            snprintf(temp, sizeof temp, "%0.f;", departamentos[i].presupuesto);
+            strcat(string, temp);
         }
-        printf("\n");
+        strcat(string, "\n");
     }
 };
 
@@ -907,7 +914,7 @@ int main()
                 int col = atoi(strtok(NULL, sp));
 
                 char *valStr;
-                int *valInt;
+                int valInt;
                 if (strcmp(content, "1") == 0)
                 {
                     if (col == 1 || col == 4 || col == 8 || col == 9)
@@ -935,11 +942,7 @@ int main()
                     }
 
                     char string3a[20000];
-                    // En columnasInt ya está un array con los valores de columnas.
-                    // Necesito que selectTabla1 termine en que string3a tenga guardado un string gigante con todo lo que se va a retornar a client.c. Referencia en case 1 y 2, hechos por Lorena.
                     selectTabla1(empleados, contEmp, columnasInt, opp, col, valInt, valStr, string3a);
-
-                    // Una vez que ya esté en string3a, descomentar los siguientes dos comandos.
                     send(new_socket, string3a, strlen(string3a), 0);
                     memset(string3a, 0, sizeof(string3a));
                 }
@@ -970,13 +973,9 @@ int main()
                     }
 
                     char string3b[20000];
-                    // En columnasInt ya está un array con los valores de columnas.
-                    // Necesito que selectTabla1 termine en que string3a tenga guardado un string gigante con todo lo que se va a retornar a client.c
-                    // selectTabla2(empleados, contEmp, columnasInt, opp, col, valInt, valStr);
-
-                    // Una vez que ya esté en string3b, descomentar los siguientes dos comandos.
-                    // send(new_socket, string3b, strlen(string3b), 0);
-                    // memset(string3b, 0, sizeof(string3b));
+                    selectTabla2(departamentos, contDept, columnasInt, opp, col, valInt, valStr, string3b);
+                    send(new_socket, string3b, strlen(string3b), 0);
+                    memset(string3b, 0, sizeof(string3b));
                 }
             }
             else if (atoi(option) == 4)

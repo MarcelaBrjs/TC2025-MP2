@@ -78,13 +78,14 @@ int main(int argc, char const *argv[])
                     recv(s, buffer , 1024 , 0);
                     printf("Tabla 1\n");
                     printf("%s\n", buffer);
-                    // Imprimir información de la tabla 1.
+                    memset(buffer,0,sizeof(buffer));
                     break;
                 case 2:
                     send(s, "2;", strlen("2;"), 0);
                     recv(s, buffer , 1024 , 0);
                     printf("Tabla 2\n");
-                    // Imprimir información de la tabla 2.
+                    printf("%s\n", buffer);
+                    memset(buffer,0,sizeof(buffer));
                     break;
                 case 3:
                     printf("Query SELECT\n");

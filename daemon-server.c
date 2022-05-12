@@ -94,8 +94,6 @@ int readTable1(struct _empleado *empleados)
     char line[300];
     int contEmp = 0;
 
-    while (!feof(fp))
-    {
         while (fgets(line, sizeof(line), fp))
         {
             int state = 0;
@@ -161,8 +159,7 @@ int readTable1(struct _empleado *empleados)
         }
 
         fclose(fp);
-    }
-
+    
     return contEmp;
 }
 
@@ -180,8 +177,6 @@ int readTable2(struct _departamento *departamentos)
     char line[300];
     int contDept = 0;
 
-    while (!feof(fp))
-    {
         while (fgets(line, sizeof(line), fp))
         {
             int state = 0;
@@ -228,17 +223,38 @@ int readTable2(struct _departamento *departamentos)
                         strcpy(elem, token);
                     }
                 }
+            }
 
                 // Cambiar de línea de registros
                 contDept++;
-            }
         }
 
         fclose(fp);
-    }
 
     return contDept;
 }
+
+void getTable1(struct _empleado *empleados, int contEmp, char string[20000])
+{
+    char temp[500];
+
+    for (int i = 0; i < contEmp; i++)
+    {
+        snprintf(temp, sizeof temp, "%d; %s; %s; %d; %s; %s; %s; %d; %0.f;\n", empleados[i].id, empleados[i].nombre, empleados[i].apellidos, empleados[i].idDept, empleados[i].fechaNacim, empleados[i].fechaContrat, empleados[i].ciudad, empleados[i].proyActuales, empleados[i].salario);
+        strcat(string, temp);
+    }
+}
+
+void getTable2(struct _departamento *departamentos, int contDept, char string[20000])
+{
+    char temp[500];
+
+    for (int i = 0; i < contDept; i++)
+    {
+        snprintf(temp, sizeof temp, "%d; %s; %s; %d; %.0f;\n", departamentos[i].idDept, departamentos[i].nombre, departamentos[i].descripcion, departamentos[i].piso, departamentos[i].presupuesto);
+        strcat(string, temp);
+    }
+};
 
 static void daemonize()
 {
@@ -328,8 +344,8 @@ int main()
     struct _empleado empleados[50] = {NULL, "", "", NULL, "", "", " ", NULL, 0};
     struct _departamento departamentos[20] = {NULL, "", "", NULL, 0};
     // Estos dos marcan error: ¡REVISAR!
-    // int contEmp = readTable1(empleados) - 1;
-    // int contDept = ReadTable2(departamentos) - 1;
+    int contEmp = readTable1(empleados) - 1;
+    int contDept = readTable2(departamentos) - 1;
 
     // ACCEPT CONNECTIONS
     while ((new_socket = accept(s, (struct sockaddr *)&address, (socklen_t *)&addrlen)))
@@ -363,11 +379,16 @@ int main()
             else if (atoi(option) == 1)
             {
                 // Obtener datos de la tabla 1 - empleados.
-                // Ejemplo:
-                send(new_socket, "Tabla 1", strlen("Tabla 1"), 0);
+                char string[20000];
+                getTable1(empleados, contEmp, string);
+                send(new_socket, string, strlen(string), 0);
+                memset(string,0,sizeof(string));
             } else if (atoi(option) == 2) {
                 // Obtener datos de la tabla 2 - departamentos.
-                // printTable2(departamentos, contDept);
+                char string2[20000];
+                getTable2(departamentos, contDept, string2);
+                send(new_socket, string2, strlen(string2), 0);
+                memset(string2,0,sizeof(string2));
             }
             else if (atoi(option) == 3)
             {
